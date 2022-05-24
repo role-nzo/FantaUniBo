@@ -46,5 +46,7 @@ public abstract class Votazione {
 
      //fare isAmmesso
 
+    public abstract boolean isAmmesso();
+
      
 }
