@@ -24,10 +24,9 @@ public class ClassificheController implements IClassifiche{
     }
 
     @Override
-    public Classifica visualizzaClassifica(ClassificaPrivata classifica) {
+    public Classifica ottieniClassifica(int IDClassifica) {
         // TODO Auto-generated method stub
-        // CHANGE - invece di accettare come parametro la ClassificaPrivata, mettere IDClassifica?
-        return null;   
+        return null;  
     }
     
 }
