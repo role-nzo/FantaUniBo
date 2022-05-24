@@ -5,5 +5,6 @@ package interfaces;
  */
 public interface ISincronizzaDati {
 
+    public void sincronizzaDati();
     
 }
