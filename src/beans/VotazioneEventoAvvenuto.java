@@ -29,9 +29,4 @@ public class VotazioneEventoAvvenuto extends Votazione{
     public boolean isAmmesso(int valoreRisposta) {
         return valoreRisposta == ValoreRisposta.FALSO.value || valoreRisposta == ValoreRisposta.NONSO.value || valoreRisposta > 0;
     }
-
-    @Override
-    public boolean isAmmesso() {
-        return false;
-    }
 }

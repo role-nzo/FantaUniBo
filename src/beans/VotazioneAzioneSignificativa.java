@@ -21,6 +21,10 @@ public class VotazioneAzioneSignificativa extends Votazione{
         return corsoDiLaurea;
     }
 
+    public void setCorsoDiLaurea(Optional<CorsoDiLaurea> corsoDiLaurea){
+        this.corsoDiLaurea = corsoDiLaurea;
+    }
+
     @Override
     public boolean isAmmesso(int valoreRisposta) {
         return valoreRisposta == ValoreRisposta.NO.value || valoreRisposta == ValoreRisposta.SI.value;
