@@ -3,6 +3,8 @@ package beans;
 public class Risposta {
 
     private int valore;
+    private Giocatore giocatore;
+    private Votazione votazione;
 
     public Risposta(int valore) {
         this.valore = valore;
@@ -13,11 +15,11 @@ public class Risposta {
     }
 
     public Giocatore getGiocatore(){
-        return null;
+        return giocatore;
     }
 
     public Votazione getVotazione(){
-        return null;
+        return votazione;
     }
 
 }

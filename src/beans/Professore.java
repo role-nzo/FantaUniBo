@@ -7,6 +7,8 @@ public class Professore {
     private String nome;
     private String cognome;
     private String email;
+    private Set<CorsoDiLaurea> corsiDiLaurea;
+    private Set<EventoAvvenuto> eventiAvvenuti;
 
     public Professore(String nome, String cognome, String email){
         this.nome = nome;
@@ -38,21 +40,20 @@ public class Professore {
         this.email = email;
     }
 
-    public CorsoDiLaurea getCorsoDiLaurea(){
-        return null;
+    public Set<CorsoDiLaurea> getCorsiDiLaurea(){
+        return corsiDiLaurea;
     }
 
-    public void setCorsiDiLaurea(Set<CorsoDiLaurea> corsiDiLAurea){
-
+    public void setCorsiDiLaurea(Set<CorsoDiLaurea> corsiDiLaurea){
+        this.corsiDiLaurea = corsiDiLaurea;
     }
 
     public Set<EventoAvvenuto> getEventiAvvenuti(){
-        Set<EventoAvvenuto> eventiAvvenuti = new HashSet<>();
         return eventiAvvenuti;
     }
 
     public void aggiungiEventoAvvenuto(EventoAvvenuto eventoAvvenuto){
-        
+        eventiAvvenuti.add(eventoAvvenuto);
     }
     
 }

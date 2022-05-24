@@ -8,6 +8,7 @@ public abstract class Votazione {
 
     private String descrizione;
     private LocalDateTime timestamp;
+    private Set<Risposta> risposte;
 
     public Votazione(String descrizione, LocalDateTime timestamp) {
         this.descrizione = descrizione;
@@ -28,7 +29,6 @@ public abstract class Votazione {
     }
 
     public Set<Risposta> getRisposte(){
-        Set<Risposta> risposte = new HashSet<>();
         return risposte;
     }
 

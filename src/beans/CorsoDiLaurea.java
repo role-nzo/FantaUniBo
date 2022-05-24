@@ -7,7 +7,12 @@ public class CorsoDiLaurea {
     private String codice;
     private String annoAccademico;
     private String descrizione;
+    private Set<Professore> professori;
+    private Set<Giocatore> giocatori;
+    private Universita universita;
     
+    public CorsoDiLaurea() {}
+
     public CorsoDiLaurea(String codice, String annoAccademico, String descrizione) {
         this.codice = codice;
         this.annoAccademico = annoAccademico;
@@ -15,28 +20,27 @@ public class CorsoDiLaurea {
     }
 
     public Universita getUniversita(){
-        return null;
+        return universita;
     }
 
     public void setUniversita(Universita universita){
-
+        this.universita = universita;
     }
 
     public Set<Professore> getProfessori(){
-        return null;
+        return professori;
     }
 
     public void setProfessori(Set<Professore> professori){
-
+        this.professori = professori;
     }
 
     public Set<Giocatore> getGiocatori(){
-        Set<Giocatore> giocatori = new HashSet<>();
         return giocatori;
     }
 
     public void aggiungiGiocatore(Giocatore giocatore){
-        
+        giocatori.add(giocatore);
     }
 
     public String getCodice() {

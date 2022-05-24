@@ -6,6 +6,10 @@ public class EventoAvvenuto {
     
     private Date data;
     private Set<Integer> valoriRisposteVincitrici;
+    private Professore professore;
+    private AzioneSignificativa azioneSignificativa;
+
+    public EventoAvvenuto() {}
 
     public EventoAvvenuto(Date data, Set<Integer> valoriRisposteVincitrici) {
         this.data = data;
@@ -13,11 +17,11 @@ public class EventoAvvenuto {
     }
 
     public AzioneSignificativa getAzioneSignificativa(){
-        return null;
+        return azioneSignificativa;
     }
 
     public Professore getProfessore(){
-        return null;
+        return professore;
     }
 
     public Date getData() {

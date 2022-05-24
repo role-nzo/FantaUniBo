@@ -1,13 +1,17 @@
 package beans;
 public class Utente {
-    String email;
+    
+    private String email;
+    private Ruolo ruolo;
+
+    public Utente() {}
 
     public Utente(String email){
         this.email = email;
     }
 
     public String getEmail(){
-        return this.email;
+        return email;
     }
 
     public void setEmail(String email){
@@ -15,11 +19,11 @@ public class Utente {
     }
 
     public Ruolo getRuolo(){
-        return null;
+        return ruolo;
     }
 
     public void setRuolo(Ruolo ruolo){
-
+        this.ruolo = ruolo;
     }
 
     public void blocca(){

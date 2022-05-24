@@ -4,8 +4,9 @@ import java.util.*;
 
 public class Universita {
     
-    public String descrizione;
+    private String descrizione;
     private String citta;
+    private Set<CorsoDiLaurea> corsiDiLaurea;
 
     public Universita(String descrizione, String citta) {
         this.descrizione = descrizione;
@@ -16,25 +17,17 @@ public class Universita {
         return descrizione;
     }
 
-
-
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
-
-
 
     public String getCitta() {
         return citta;
     }
 
-
-
     public void setCitta(String citta) {
         this.citta = citta;
     }
-
-
 
     public static Set<Universita> getAllUniversita(){
         Set<Universita> allUniversita = new HashSet<>();
@@ -42,11 +35,10 @@ public class Universita {
     } 
 
     public Set<CorsoDiLaurea> getCorsiDiLaurea(){
-        Set<CorsoDiLaurea> corsiDiLaurea = new HashSet<>();
         return corsiDiLaurea;
     }
 
     public void setCorsiDiLaurea(Set<CorsoDiLaurea> corsiDiLaurea){
-
+        this.corsiDiLaurea = corsiDiLaurea;
     }
 }

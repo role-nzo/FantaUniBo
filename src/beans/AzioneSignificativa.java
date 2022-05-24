@@ -6,9 +6,12 @@ public class AzioneSignificativa {
 
     private int CFU;
     private String descrizione;
+    private CorsoDiLaurea corsoDiLaurea;
+
+    public AzioneSignificativa() {}
     
-    public AzioneSignificativa(int cFU, String descrizione) {
-        CFU = cFU;
+    public AzioneSignificativa(int CFU, String descrizione) {
+        this.CFU = CFU;
         this.descrizione = descrizione;
     }
 
@@ -16,8 +19,8 @@ public class AzioneSignificativa {
         return CFU;
     }
 
-    public void setCFU(int cFU) {
-        CFU = cFU;
+    public void setCFU(int CFU) {
+        this.CFU = CFU;
     }
 
     public String getDescrizione() {
@@ -29,11 +32,11 @@ public class AzioneSignificativa {
     }
 
     public CorsoDiLaurea getCorsoDiLaurea(){
-        return null;
+        return corsoDiLaurea;
     }
 
     public void setCorsoDiLaurea(CorsoDiLaurea corsoDiLAurea){
-
+        this.corsoDiLaurea = corsoDiLAurea;
     } 
 
     public static Set<AzioneSignificativa> getAllAzioniSignificative(){

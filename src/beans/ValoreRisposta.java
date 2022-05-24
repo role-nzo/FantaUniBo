@@ -1,8 +1,9 @@
 package beans;
 
-public class ValoreRisposta {
+public enum ValoreRisposta {
     
-    NONSO(-1, "Non so"), FALSO(0, "Falso"),
+    NONSO(-1, "Non so"),
+    FALSO(0, "Falso");
 
     public final int value;
     public final String label;

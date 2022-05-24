@@ -4,6 +4,8 @@ public abstract class Classifica {
     
     protected String nome;
 
+    public Classifica() {}
+
     public Classifica(String nome) {
         this.nome = nome;
     }
