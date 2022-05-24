@@ -11,6 +11,6 @@ public interface IClassifiche {
 
     public void abbandonaClassifica(ClassificaPrivata classifica);
 
-    public void visualizzaClassifica(ClassificaPrivata classifica);
+    public Classifica visualizzaClassifica(ClassificaPrivata classifica);
     
 }
