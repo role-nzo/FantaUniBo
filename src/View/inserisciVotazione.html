@@ -10,7 +10,8 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-light">
+    <!-- INIZIO -->
+    <nav class="navbar navbar-expand-lg bg-light fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">LOGO</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -48,6 +49,46 @@
             </div>
         </div>
     </nav>
+
+
+    <!-- INIZIO -->
+    <div class="d-flex flex-column container-fluid vh-100 justify-content-center align-items-center">
+        <div class="col-4 row justify-content-center align-items-center">
+            <form class="col-12 row justify-content-center">
+                <h2>Inserisci nuova votazione</h2>
+                <div class="mb-3">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Testo azione significativa (A)</label>
+                        <textarea class="form-control" id="text" style="height: 100px"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="customRange1" class="form-label">Azione significativa (E)</label>
+                        <select class="form-select" id="corsoDiLaurea">
+                            <option selected disabled hidden></option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="customRange1" class="form-label">CFU (A)</label>
+                        <input type="range" min="0" max="100" step="10" class="form-range" id="customRange1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="customRange1" class="form-label">Professore (E)</label>
+                        <select class="form-select" id="corsoDiLaurea">
+                            <option selected disabled hidden></option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-100 btn btn-success mt-3">Inserisci</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- FINE -->
 </body>
 
 </html>
