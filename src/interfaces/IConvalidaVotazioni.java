@@ -5,5 +5,6 @@ package interfaces;
  */
 public interface IConvalidaVotazioni {
 
+    public void convalidaVotazioni();
     
 }
