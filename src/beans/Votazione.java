@@ -10,6 +10,8 @@ public abstract class Votazione {
     private LocalDateTime timestamp;
     private Set<Risposta> risposte;
 
+    public Votazione() {}
+
     public Votazione(String descrizione, LocalDateTime timestamp) {
         this.descrizione = descrizione;
         this.timestamp = timestamp;

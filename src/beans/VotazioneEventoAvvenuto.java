@@ -15,4 +15,9 @@ public class VotazioneEventoAvvenuto extends Votazione{
     public AzioneSignificativa getAzioneSignificativa(){
         return null;
     }
+
+    @Override
+    public boolean isAmmesso() {
+        return false;
+    }
 }
