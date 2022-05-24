@@ -1,3 +1,4 @@
+package beans;
 public class Utente {
     String email;
 
