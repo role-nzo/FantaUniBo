@@ -25,6 +25,5 @@ public class VotazioneAzioneSignificativa extends Votazione{
     public boolean isAmmesso(int valoreRisposta) {
         return valoreRisposta == ValoreRisposta.NO.value || valoreRisposta == ValoreRisposta.SI.value;
     }
-    
 
 }
