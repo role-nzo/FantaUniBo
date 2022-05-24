@@ -1,3 +1,4 @@
+import java.util.*;
 public class Giocatore extends Utente{
 
     public Giocatore(String email){
@@ -16,11 +17,11 @@ public class Giocatore extends Utente{
 
     }
 
-    public Set<Professori> getCommissione(){
+    public Set<Professore> getCommissione(){
 
     }
 
-    public void setCommissione(Set<Professori> Commissione){
+    public void setCommissione(Set<Professore> Commissione){
 
     }
 
