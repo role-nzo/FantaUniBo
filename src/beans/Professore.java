@@ -39,7 +39,7 @@ public class Professore {
     }
 
     public CorsoDiLaurea getCorsoDiLaurea(){
-
+        return null;
     }
 
     public void setCorsiDiLaurea(Set<CorsoDiLaurea> corsiDiLAurea){
@@ -47,7 +47,8 @@ public class Professore {
     }
 
     public Set<EventoAvvenuto> getEventiAvvenuti(){
-
+        Set<EventoAvvenuto> eventiAvvenuti = new HashSet<>();
+        return eventiAvvenuti;
     }
 
     public void aggiungiEventoAvvenuto(EventoAvvenuto eventoAvvenuto){

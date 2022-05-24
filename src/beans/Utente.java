@@ -15,7 +15,7 @@ public class Utente {
     }
 
     public Ruolo getRuolo(){
-        
+        return null;
     }
 
     public void setRuolo(Ruolo ruolo){
@@ -27,6 +27,6 @@ public class Utente {
     }
 
     public boolean isBloccato(){
-
+        return false;
     }
 }
