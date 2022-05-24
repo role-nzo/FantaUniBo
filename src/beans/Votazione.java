@@ -10,6 +10,8 @@ public abstract class Votazione {
     private LocalDateTime timestamp;
     private Set<Risposta> risposte;
 
+    public Votazione() { }
+
     public Votazione(String descrizione, LocalDateTime timestamp) {
         this.descrizione = descrizione;
         this.timestamp = timestamp;
@@ -44,9 +46,7 @@ public abstract class Votazione {
         return timestamp;
     }
 
-     //fare isAmmesso
-
-    public abstract boolean isAmmesso();
+    public abstract boolean isAmmesso(int valoreRisposta);
 
      
 }

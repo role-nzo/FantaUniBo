@@ -6,13 +6,20 @@ public class AzioneSignificativa {
 
     private int CFU;
     private String descrizione;
-    private CorsoDiLaurea corsoDiLaurea;
+    private Optional<CorsoDiLaurea> corsoDiLaurea;
 
     public AzioneSignificativa() {}
     
     public AzioneSignificativa(int CFU, String descrizione) {
         this.CFU = CFU;
         this.descrizione = descrizione;
+        this.corsoDiLaurea = Optional.empty();
+    }
+
+    public AzioneSignificativa(int CFU, CorsoDiLaurea corsoDiLaurea , String descrizione) {
+        this.CFU = CFU;
+        this.descrizione = descrizione;
+        this.corsoDiLaurea = Optional.of(corsoDiLaurea);
     }
 
     public int getCFU() {
@@ -31,19 +38,16 @@ public class AzioneSignificativa {
         this.descrizione = descrizione;
     }
 
-    public CorsoDiLaurea getCorsoDiLaurea(){
+    public Optional<CorsoDiLaurea> getCorsoDiLaurea(){
         return corsoDiLaurea;
     }
 
-    public void setCorsoDiLaurea(CorsoDiLaurea corsoDiLAurea){
-        this.corsoDiLaurea = corsoDiLAurea;
+    public void setCorsoDiLaurea(Optional<CorsoDiLaurea> corsoDiLaurea){
+        this.corsoDiLaurea = corsoDiLaurea;
     } 
 
     public static Set<AzioneSignificativa> getAllAzioniSignificative(){
         Set<AzioneSignificativa> azioniSignificative = new HashSet<>();
         return azioniSignificative;
     }
-
-    
-
 }

@@ -2,6 +2,8 @@ package beans;
 
 public enum ValoreRisposta {
     
+    SI(-3, "Si"),
+    NO(-2, "No"),
     NONSO(-1, "Non so"),
     FALSO(0, "Falso");
 
