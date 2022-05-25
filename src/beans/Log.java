@@ -16,7 +16,7 @@ public class Log {
     }
     
     public List<Entry> analizza(){
-
+        return null;
     }
     
     
