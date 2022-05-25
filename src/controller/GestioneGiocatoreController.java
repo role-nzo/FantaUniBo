@@ -10,13 +10,13 @@ import interfaces.IGestioneGiocatore;
 public class GestioneGiocatoreController extends DBController implements IGestioneGiocatore{
 
     @Override
-    public int getPunteggio() {
+    public int getPunteggio(String email) {
         // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
-    public void modificaEmail(String newEmail) {
+    public void modificaEmail(String oldEmail, String newEmail) {
         // TODO Auto-generated method stub
         
     }

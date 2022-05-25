@@ -12,13 +12,13 @@ public class ClassificheController implements IClassifiche{
     }
 
     @Override
-    public void partecipaClassifica(ClassificaPrivata classifica, String chiave) {
+    public void partecipaClassifica(String email, ClassificaPrivata classifica, String chiave) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void abbandonaClassifica(ClassificaPrivata classifica) {
+    public void abbandonaClassifica(String email, ClassificaPrivata classifica) {
         // TODO Auto-generated method stub
         
     }

@@ -7,9 +7,9 @@ public interface IClassifiche {
 
     public void aggiungiClassifica(ClassificaPrivata classifica);
 
-    public void partecipaClassifica(ClassificaPrivata classifica, String chiave);
+    public void partecipaClassifica(String email, ClassificaPrivata classifica, String chiave);
 
-    public void abbandonaClassifica(ClassificaPrivata classifica);
+    public void abbandonaClassifica(String email, ClassificaPrivata classifica);
 
     public Classifica ottieniClassifica(int IDClassifica);
     
