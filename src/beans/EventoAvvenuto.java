@@ -11,8 +11,9 @@ public class EventoAvvenuto {
 
     public EventoAvvenuto() {}
 
-    public EventoAvvenuto(Date data, Set<Integer> valoriRisposteVincitrici) {
+    public EventoAvvenuto(Date data, AzioneSignificativa azione,Professore professore, Set<Integer> valoriRisposteVincitrici) {
         this.data = data;
+        this.professore = professore;
         this.valoriRisposteVincitrici = valoriRisposteVincitrici;
     }
 
