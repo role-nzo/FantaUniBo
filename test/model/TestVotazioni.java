@@ -3,6 +3,8 @@ package test.model;
 import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,29 +13,55 @@ import beans.*;
 
 public class TestVotazioni {
  
-    private Votazione azioneGlobale;
-    private Votazione azioneIngInf;
-    private Votazione evento;
+    private VotazioneAzioneSignificativa azioneGlobale;
+    private VotazioneAzioneSignificativa azioneIngInf;
+    private VotazioneEventoAvvenuto evento;
     private Professore patella;
     private CorsoDiLaurea ingInf;
     private AzioneSignificativa cascato;
+    private Risposta risposta;
+    private Giocatore giocatore;
+    private LocalDateTime dataOra;
 
     @Before
     public void SetUp(){
-        azioneGlobale = new VotazioneAzioneSignificativa("Votazione per azione globale", LocalDateTime.now());
+        dataOra = LocalDateTime.now();
+        giocatore = new Giocatore();
+
+        azioneGlobale = new VotazioneAzioneSignificativa("Votazione per azione globale", dataOra);
         
         ingInf = new CorsoDiLaurea("12345","2021/22","Ingegneria Informatica");
-        azioneIngInf = new VotazioneAzioneSignificativa("Votazione per azione ad Ing. Inf.", ingInf, LocalDateTime.now());
+        azioneIngInf = new VotazioneAzioneSignificativa("Votazione per azione ad Ing. Inf.", ingInf, dataOra);
         
         patella = new Professore("Marco", "Patella", "suaemail@unibo.it");
         cascato = new AzioneSignificativa(100, ingInf,"Il prof casca a lezione");
-        evento = new VotazioneEventoAvvenuto("Votazione Patella s'è cascato", patella, cascato, LocalDateTime.now() );
+        evento = new VotazioneEventoAvvenuto("Votazione Patella s'è cascato", patella, cascato, dataOra );
+
+        risposta = new Risposta(ValoreRisposta.SI.value, giocatore, azioneGlobale);
+
     }
 
     @Test
     public void testGetter(){
         assertEquals("Votazione per azione globale", azioneGlobale.getDescrizione());
-        assertEquals("Votazione per azione ad Ing. Inf.", azioneIngInf.getDescrizione());
+        assertEquals("Votazione Patella s'è cascato", evento.getDescrizione());
+
+        assertEquals(dataOra, azioneGlobale.getTimestamp());
+
+        assertEquals(true, azioneIngInf.getCorsoDiLaurea().isPresent());
+        assertEquals(ingInf, azioneIngInf.getCorsoDiLaurea().get());
+
+        assertEquals(true, azioneGlobale.getCorsoDiLaurea().isEmpty());
+    }
+
+    @Test
+    public void testSetter(){
+
+        azioneGlobale.setDescrizione("Nuova descrizione per la votazione");
+        assertEquals("Nuova descrizione per la votazione", azioneGlobale.getDescrizione());
+
+        
+
     }
 
     @Test
@@ -46,5 +74,20 @@ public class TestVotazioni {
         assertEquals(false, evento.isAmmesso(ValoreRisposta.SI.value));
     }
 
+
+    /*
+
+    AGGIUNGERE?
+
+    @Test
+    public void testRispondi(){
+        
+        azioneGlobale.rispondi(risposta);
+        Set<Risposta> risposte = new HashSet<Risposta>();
+        risposte.add(risposta);
+
+        assertEquals(risposte, azioneGlobale.getRisposte());
+    }
+    */
 
 }

@@ -14,6 +14,7 @@ public class TestGiocatore {
     @Before
     public void SetUp(){
         giocatore = new Giocatore("pietro.ruffinelli@studio.unibo.it");
+
     }
 
     @Test
@@ -30,5 +31,6 @@ public class TestGiocatore {
     @Test
     public void testSetterKO(){
         assertThrows( IllegalArgumentException.class, () -> { giocatore.setEmail("ciccio.pippo@gmail.com"); });
-        assertThrows( IllegalArgumentException.class, () -> { new Giocatore("non.istituzionale@libero.it"); });    }
+        assertThrows( IllegalArgumentException.class, () -> { new Giocatore("non.istituzionale@libero.it"); });
+    }
 }
