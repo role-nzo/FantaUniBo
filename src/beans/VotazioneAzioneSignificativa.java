@@ -1,38 +1,33 @@
 package beans;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public class VotazioneAzioneSignificativa extends Votazione{
 
-    private int CFU;
-    private CorsoDiLaurea corsoDiLaurea;
+    private Optional<CorsoDiLaurea> corsoDiLaurea;
 
-    public VotazioneAzioneSignificativa() {}
-
-    public VotazioneAzioneSignificativa(String descrizione, LocalDateTime timestamp, int CFU) {
+    public VotazioneAzioneSignificativa(String descrizione, LocalDateTime timestamp) {
         super(descrizione, timestamp);
-        this.CFU = CFU;
+        corsoDiLaurea = Optional.empty();
+    }
+
+    public VotazioneAzioneSignificativa(String descrizione, CorsoDiLaurea corsoDiLaurea, LocalDateTime timestamp) {
+        super(descrizione, timestamp);
+        this.corsoDiLaurea = Optional.of(corsoDiLaurea);
+    }
+
+    public Optional<CorsoDiLaurea> getCorsoDiLaurea(){
+        return corsoDiLaurea;
+    }
+
+    public void setCorsoDiLaurea(Optional<CorsoDiLaurea> corsoDiLaurea){
+        this.corsoDiLaurea = corsoDiLaurea;
     }
 
     @Override
-    public boolean isAmmesso() {
-        return false;
-    }
-
-    public int getCFU() {
-        return CFU;
-    }
-
-    public void setCFU(int CFU) {
-        this.CFU = CFU;
-    }
-    
-    public CorsoDiLaurea getCorsoDiLaurea(){
-        return this.corsoDiLaurea;
-    }
-
-    public void setCorsoDiLaurea(CorsoDiLaurea corsoDiLaurea){
-        this.corsoDiLaurea = corsoDiLaurea;
+    public boolean isAmmesso(int valoreRisposta) {
+        return valoreRisposta == ValoreRisposta.NO.value || valoreRisposta == ValoreRisposta.SI.value;
     }
 
 }

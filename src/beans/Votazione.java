@@ -13,6 +13,7 @@ public abstract class Votazione {
     public Votazione() {}
 
     public Votazione(String descrizione, LocalDateTime timestamp) {
+        this.risposte = new HashSet<Risposta>();
         this.descrizione = descrizione;
         this.timestamp = timestamp;
     }
@@ -22,12 +23,12 @@ public abstract class Votazione {
     }
     
     public void rispondi(Risposta risposta){
-
+        risposte.add(risposta);
     }
 
     public static Set<Votazione> getVotazioniGiornaliere(){
-        Set<Votazione> votazioniGiornaliere = new HashSet<>();
-        return votazioniGiornaliere;
+        //TODO - interfacciamento con database? mettere nel controller?
+        return null;
     }
 
     public Set<Risposta> getRisposte(){
@@ -46,9 +47,7 @@ public abstract class Votazione {
         return timestamp;
     }
 
-     //fare isAmmesso
-
-    public abstract boolean isAmmesso();
+    public abstract boolean isAmmesso(int valoreRisposta);
 
      
 }

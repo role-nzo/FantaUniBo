@@ -4,20 +4,29 @@ import java.time.LocalDateTime;
 
 public class VotazioneEventoAvvenuto extends Votazione{
 
-    public VotazioneEventoAvvenuto(String descrizione, LocalDateTime timestamp) {
+    private Professore professore;
+    private AzioneSignificativa azioneSignificativa;
+
+    public VotazioneEventoAvvenuto() {
+        super();
+    }
+
+    public VotazioneEventoAvvenuto(String descrizione, Professore professore, AzioneSignificativa azioneSignificativa, LocalDateTime timestamp) {
         super(descrizione, timestamp);
+        this.professore = professore;
+        this.azioneSignificativa = azioneSignificativa;
     }
     
     public Professore getProfessore(){
-        return null;
+        return professore;
     }
 
     public AzioneSignificativa getAzioneSignificativa(){
-        return null;
+        return azioneSignificativa;
     }
 
     @Override
-    public boolean isAmmesso() {
-        return false;
+    public boolean isAmmesso(int valoreRisposta) {
+        return valoreRisposta == ValoreRisposta.FALSO.value || valoreRisposta == ValoreRisposta.NONSO.value || valoreRisposta > 0;
     }
 }
