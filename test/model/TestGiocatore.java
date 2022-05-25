@@ -23,16 +23,16 @@ public class TestGiocatore {
     public void SetUp(){
 
         // Creo il giocatore
-        giocatore = new Giocatore("pietro.ruffinelli@studio.unibo.it");
+        giocatore = new Giocatore("bianca.laverde@studio.unibo.it");
 
         // Creo il corso del giocatore
         ingInf = new CorsoDiLaurea("12345","2021/22","Ingegneria Informatica");
 
         // Creo i professori che comporranno commissione e professoriSeguiti del giocatore
-        prof1 = new Professore("Mario", "Rossi", "mario.rossi@unibo.it");
-        prof2 = new Professore("Paolo", "Bitta", "paolo.bitta@unibo.it");
-        Professore prof3 = new Professore("Marco", "Bianchi", "marco.bianchi@unibo.it");
-        Professore prof4 = new Professore("Mario", "Neri", "mario.neri@unibo.it");
+        prof1 = new Professore("Pino", "Silvestre", "pino.silvestre@unibo.it");
+        prof2 = new Professore("Massimo", "Voltaggio", "massimo.voltaggio@unibo.it");
+        Professore prof3 = new Professore("Bianca", "Neve", "bianca.neve@unibo.it");
+        Professore prof4 = new Professore("Domenica", "D'agosto", "domenica.dagosto@unibo.it");
 
         // Affinche' commissione e professoriSeguiti siano validi, i professori al loro interno devono insegnare (anche) nel corso del giocatore
         prof1.getCorsiDiLaurea().add(ingInf);
@@ -57,15 +57,15 @@ public class TestGiocatore {
     @Test
     public void testGetter(){
 
-        assertEquals("pietro.ruffinelli@studio.unibo.it", giocatore.getEmail());
+        assertEquals("bianca.laverde@studio.unibo.it", giocatore.getEmail());
     }
 
     @Test
     public void testSetterOK(){
 
         // 
-        giocatore.setEmail("pippo.pluto@studio.unibo.it");
-        assertEquals("pippo.pluto@studio.unibo.it", giocatore.getEmail());
+        giocatore.setEmail("lino.maia@studio.unibo.it");
+        assertEquals("lino.maia@studio.unibo.it", giocatore.getEmail());
 
         //
         giocatore.setCorsoDiLaurea(ingInf);
@@ -90,13 +90,13 @@ public class TestGiocatore {
     public void testSetterKO(){
 
         // IllegalArgumentException se email non istituzionale per il giocatore
-        assertThrows( IllegalArgumentException.class, () -> { giocatore.setEmail("topolino.pippo@gmail.com"); });
-        assertThrows( IllegalArgumentException.class, () -> { new Giocatore("non.istituzionale@libero.it"); });
+        assertThrows( IllegalArgumentException.class, () -> { giocatore.setEmail("guido.piano@gmail.com"); });
+        assertThrows( IllegalArgumentException.class, () -> { new Giocatore("remo.labarca@libero.it"); });
 
         // IllegalArgumentException se la commissione non e' composta da esattamente 4 professori
         Set<Professore> newCommissione = new HashSet<>();
         newCommissione.add(prof1);
-        
+
         assertThrows( IllegalArgumentException.class, () -> { giocatore.setCommissione(commissione); });
 
         // IllegalArgumentException se i professori seguiti non sono almeno 3

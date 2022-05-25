@@ -21,7 +21,7 @@ public class VotazioneAzioneSignificativa extends Votazione{
         return corsoDiLaurea;
     }
 
-    public void setCorsoDiLaurea(Optional<CorsoDiLaurea> corsoDiLaurea){
+    public void setCorsoDiLaurea(Optional<CorsoDiLaurea> corsoDiLaurea){  //CHANGE? RIMUOVI?
         this.corsoDiLaurea = corsoDiLaurea;
     }
 

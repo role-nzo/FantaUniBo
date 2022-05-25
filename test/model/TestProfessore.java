@@ -13,59 +13,67 @@ import org.junit.Test;
 import beans.*;
 
 public class TestProfessore {
-    
+
     private Professore professore;
-    CorsoDiLaurea ingInf;
-    AzioneSignificativa azioneGlobale;
-    EventoAvvenuto evento;
+    private CorsoDiLaurea ingInf;
+    private AzioneSignificativa azioneGlobale;
+    private EventoAvvenuto evento;
+    private Set<CorsoDiLaurea> corsiDiEster;
 
     @Before
-    public void SetUp(){
-        azioneGlobale = new AzioneSignificativa(-50, "Il professore arriva in ritardo di almeno 15 minuti");
-        ingInf = new CorsoDiLaurea("12345","2021/22","Ingegneria Informatica");
-        
-        professore = new Professore("Mario", "Rossi", "mario.rossi@unibo.it");
-        professore.getCorsiDiLaurea().add(ingInf);
+    public void SetUp() {
+        // Creo un corso dove insegna il professore
+        ingInf = new CorsoDiLaurea("12345", "2021/22", "Ingegneria Informatica");
+        corsiDiEster = new HashSet<>();
+        corsiDiEster.add(ingInf);
 
+        // Creo professore
+        professore = new Professore("Ester", "Poli", "ester.poli@unibo.it", corsiDiEster);
+
+        // Creo un evento avvenuto relativo al professore
+        azioneGlobale = new AzioneSignificativa(-50, "Il professore arriva in ritardo di almeno 15 minuti");
         Set<Integer> risposteVincitrici = new HashSet<>();
         risposteVincitrici.add(ValoreRisposta.FALSO.value);
-        evento = new EventoAvvenuto(Date.valueOf( LocalDate.now() ), azioneGlobale , professore, risposteVincitrici);
+        evento = new EventoAvvenuto(Date.valueOf(LocalDate.now()), azioneGlobale, professore, risposteVincitrici);
 
+    }
+
+    @Test
+    public void testGetter() {
+
+        assertEquals("Ester", professore.getNome());
+        assertEquals("Poli", professore.getCognome());
+        assertEquals("ester.poli@unibo.it", professore.getEmail());
+
+        assertEquals(ingInf, professore.getCorsiDiLaurea().iterator().next());
+
+    }
+
+    @Test
+    public void testSetter() {
+
+        professore.setNome("Lino");
+        assertEquals("Lino", professore.getNome());
+
+        //
+        professore.setCognome("Sasso");
+        assertEquals("Sasso", professore.getCognome());
+
+        //
+        professore.setEmail("lino.sasso@unibo.it");
+        assertEquals("lino.sasso@unibo.it", professore.getEmail());
+
+        //
+        Set<CorsoDiLaurea> nuoviCorsiDiLino = new HashSet<>();
+        CorsoDiLaurea dams = new CorsoDiLaurea("56789", "2021/22", "DAMS");
+        nuoviCorsiDiLino.add(ingInf);
+        nuoviCorsiDiLino.add(dams);
+
+        professore.setCorsiDiLaurea(nuoviCorsiDiLino);
+        assertEquals(nuoviCorsiDiLino, professore.getCorsiDiLaurea());
+
+        // 
         professore.aggiungiEventoAvvenuto(evento);
-    }
-
-    @Test
-    public void testGetter(){
-        assertEquals("Mario", professore.getNome());
-        assertEquals("Rossi", professore.getCognome());
-        assertEquals("mario.rossi@unibo.it", professore.getEmail());
-
-        Set<CorsoDiLaurea> corsiDiMario = new HashSet<>();
-        corsiDiMario.add(ingInf);
-        assertEquals(corsiDiMario, professore.getCorsiDiLaurea());
-
-        Set<EventoAvvenuto> eventiDiMario = new HashSet<>();
-        eventiDiMario.add(evento);
-        assertEquals(eventiDiMario, professore.getEventiAvvenuti());
-    }
-
-    @Test
-    public void testSetter(){
-        professore.setNome("Paolo");
-        assertEquals("Paolo", professore.getNome());
-
-        professore.setCognome("Bitta");
-        assertEquals("Bitta", professore.getCognome());
-
-        professore.setEmail("paolo.bitta@unibo.it");
-        assertEquals("paolo.bitta@unibo.it", professore.getEmail());
-
-        Set<CorsoDiLaurea> nuoviCorsiDiPaolo = new HashSet<>();
-        CorsoDiLaurea dams = new CorsoDiLaurea("56789","2021/22","DAMS");
-        
-        nuoviCorsiDiPaolo.add(ingInf);
-        nuoviCorsiDiPaolo.add(dams);
-        professore.setCorsiDiLaurea(nuoviCorsiDiPaolo);
-        assertEquals(nuoviCorsiDiPaolo, professore.getCorsiDiLaurea());
+        assertEquals(evento, professore.getEventiAvvenuti().iterator().next());
     }
 }
