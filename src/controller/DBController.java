@@ -20,7 +20,6 @@ public class DBController {
     private Connection openDBConnection() {
         String driver;
         String dbUri;
-new Driver().
         driver = "com.mysql.jdbc.Driver";
         dbUri = "jdbc:mysql://sql.lorenzoziosi.com/lorenzoz62330?" + "user=";
 
