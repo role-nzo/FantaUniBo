@@ -26,6 +26,14 @@ public class VotazioneAzioneSignificativa extends Votazione{
         this.corsoDiLaurea = corsoDiLaurea;
     }
 
+    public int getCFU(){
+        return this.CFU;
+    }
+
+    public void setCFU(int CFU){
+        this.CFU = CFU;
+    }
+
     @Override
     public boolean isAmmesso(int valoreRisposta) {
         return valoreRisposta == ValoreRisposta.NO.value || valoreRisposta == ValoreRisposta.SI.value;
