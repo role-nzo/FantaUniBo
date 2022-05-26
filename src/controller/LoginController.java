@@ -1,6 +1,5 @@
 package controller;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,9 +13,9 @@ public class LoginController extends DBController implements ILogin{
     private static final String UTENTI_TABLE = "utenti";
 
     @Override
-    public Ruolo verificaCredenziali(String email, String password) {
+    public Ruolo verificaCredenziali(String email, String password) { 
         try {
-            PreparedStatement statementLogin = super.getDBConnection().prepareStatement("SELECT * FROM " + UTENTI_TABLE + " WHERE email=? AND password=?");
+            PreparedStatement statementLogin = super.getDBConnection().prepareStatement("SELECT * FROM " + UTENTI_TABLE + " WHERE email=? AND hashPassword=?");
             
             statementLogin.setString(1, email);
             statementLogin.setString(2, password);
@@ -28,7 +27,7 @@ public class LoginController extends DBController implements ILogin{
             }
         } catch (SQLException e) {
             System.out.println(e);
-        }
+        } 
 
         return null;
     }

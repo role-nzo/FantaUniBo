@@ -12,229 +12,308 @@ import interfaces.IGestioneGiocatore;
 /**
  * GestioneGiocatoreController
  */
-public class GestioneGiocatoreController extends DBController implements IGestioneGiocatore{
+public class GestioneGiocatoreController extends DBController implements IGestioneGiocatore {
 
-    private static final String UTENTI_TABLE = "utenti";
-    private static final String GIOCATORI_TABLE = "giocatori";
-    private static final String CORSI_DI_LAUREA_TABLE = "corsiDiLaurea";
-    private static final String GIOCATORI_CLASSIFICHE_TABLE = "giocatori_classifichePrivate";
-    private static final String GIOCATORI_COMMISSIONI_TABLE = "giocatori_commissioni";
-    private static final String GIOCATORI_PROFESSORI_SEGUITI_TABLE = "giocatori_professoriSeguiti";
-    private static final String PROFESSORI_TABLE = "professori";
+	private static final String UTENTI_TABLE = "utenti";
+	private static final String GIOCATORI_TABLE = "giocatori";
+	private static final String CORSI_DI_LAUREA_TABLE = "corsiDiLaurea";
+	private static final String GIOCATORI_CLASSIFICHE_TABLE = "giocatori_classifichePrivate";
+	private static final String GIOCATORI_COMMISSIONI_TABLE = "giocatori_commissioni";
+	private static final String GIOCATORI_PROFESSORI_SEGUITI_TABLE = "giocatori_professoriSeguiti";
+	private static final String PROFESSORI_TABLE = "professori";
+	private static final String PROFESSORI_CORSI_DI_LAUREA_TABLE = "professori_corsiDiLaurea";
 
-    @Override
-    public int getPunteggio(String email) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
+	@Override
+	public int getPunteggio(String email) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
-    @Override
-    public void modificaEmail(String oldEmail, String newEmail) {
-        // TODO Auto-generated method stub
-        
-    }
+	@Override
+	public void modificaEmail(String oldEmail, String newEmail) {
+		// TODO Auto-generated method stub
 
-    //FIXME: per i test
-    public void eliminaGiocatore(String email) {
-        try {
-            PreparedStatement statementUtente = super.getDBConnection().prepareStatement("DELETE FROM " + UTENTI_TABLE + " WHERE email=?");
-            
-            statementUtente.setString(1, email);
-            
-            statementUtente.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-    }
+	}
 
-    public int aggiungiGiocatore(String email, String password) {
-        int id = -1;
+	// FIXME: per i test
+	public void eliminaGiocatore(String email) {
+		try {
+			PreparedStatement statementUtente = super.getDBConnection()
+					.prepareStatement("DELETE FROM " + UTENTI_TABLE + " WHERE email=?");
 
-        try {
-            PreparedStatement statementUtente = super.getDBConnection().prepareStatement("Insert into " + UTENTI_TABLE + " (email, hashPassword, ruolo) VALUES (?, ?, 'partecipante')");
-            PreparedStatement statementIDUtente = super.getDBConnection().prepareStatement("select * from " + UTENTI_TABLE + " WHERE email=?");
-            PreparedStatement statementGiocatore = super.getDBConnection().prepareStatement("Insert into " + GIOCATORI_TABLE + " (idUtente) VALUES (?)");
-            
-            statementUtente.setString(1, email);
-            statementUtente.setString(2, password);
-            
-            int row = statementUtente.executeUpdate();
+			statementUtente.setString(1, email);
 
-            if(row > 0) {
-                statementIDUtente.setString(1, email);
-                ResultSet resultUtente = statementIDUtente.executeQuery();
+			statementUtente.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+	}
 
-                if(resultUtente.next()) {
-                    id = resultUtente.getInt("id");
+	public int aggiungiGiocatore(String email, String password) {
+		int id = -1;
 
-                    statementGiocatore.setInt(1, id);
+		try {
+			PreparedStatement statementUtente = super.getDBConnection().prepareStatement(
+					"Insert into " + UTENTI_TABLE + " (email, hashPassword, ruolo) VALUES (?, ?, 'partecipante')");
+			PreparedStatement statementIDUtente = super.getDBConnection()
+					.prepareStatement("select * from " + UTENTI_TABLE + " WHERE email=?");
+			PreparedStatement statementGiocatore = super.getDBConnection()
+					.prepareStatement("Insert into " + GIOCATORI_TABLE + " (idUtente) VALUES (?)");
 
-                    statementGiocatore.executeUpdate();
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
+			statementUtente.setString(1, email);
+			statementUtente.setString(2, password);
 
-        return id;
-    }
+			int row = statementUtente.executeUpdate();
 
-    //FIXME: MA ottieniUtente?????
-    @Override
-    public Giocatore ottieniGiocatore(int id) {
-        Giocatore giocatore = null;
+			if (row > 0) {
+				statementIDUtente.setString(1, email);
+				ResultSet resultUtente = statementIDUtente.executeQuery();
 
-        try {
-            PreparedStatement statementGiocatore = super.getDBConnection().prepareStatement("Select * from " + UTENTI_TABLE + " AS A JOIN " + GIOCATORI_TABLE + " AS B ON A.id=B.idUtente where id=?");
-            
-            statementGiocatore.setInt(1, id);
-            
-            ResultSet resultGiocatore = statementGiocatore.executeQuery();
+				if (resultUtente.next()) {
+					id = resultUtente.getInt("id");
 
-            if(resultGiocatore.next()) {
-                giocatore = new Giocatore();
-                giocatore.setId(resultGiocatore.getInt("id"));
-                giocatore.setEmail(resultGiocatore.getString("email"));
-                giocatore.setRuolo(Ruolo.from(resultGiocatore.getString("ruolo")));
-                giocatore.setCorsoDiLaurea(ottieniCorsoDiLaurea(resultGiocatore.getInt("corsoDiLaurea")));
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
+					statementGiocatore.setInt(1, id);
 
-        return giocatore;
-    }
+					statementGiocatore.executeUpdate();
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
 
-    private CorsoDiLaurea ottieniCorsoDiLaurea(int id) {
-        CorsoDiLaurea corsoDiLaurea = null;
+		return id;
+	}
 
-        try {
-            PreparedStatement statementCorsoDiLaurea = super.getDBConnection().prepareStatement("Select * from " + CORSI_DI_LAUREA_TABLE + " where id=?");
-            
-            statementCorsoDiLaurea.setInt(1, id);
-            
-            ResultSet resultCorsoDiLaurea = statementCorsoDiLaurea.executeQuery();
+	// FIXME: MA ottieniUtente?????
+	@Override
+	public Giocatore ottieniGiocatore(int id) {
+		Giocatore giocatore = null;
 
-            if(resultCorsoDiLaurea.next()) {
-                corsoDiLaurea = new CorsoDiLaurea();
-                corsoDiLaurea.setId(resultCorsoDiLaurea.getInt("id"));
-                corsoDiLaurea.setCodice(resultCorsoDiLaurea.getString("codice"));
-                corsoDiLaurea.setAnnoAccademico(resultCorsoDiLaurea.getString("annoAccademico"));
-                corsoDiLaurea.setDescrizione(resultCorsoDiLaurea.getString("descrizione"));
-            }
-        } catch (SQLException e) {
+		try {
+			PreparedStatement statementGiocatore = super.getDBConnection().prepareStatement("Select * from "
+					+ UTENTI_TABLE + " AS A JOIN " + GIOCATORI_TABLE + " AS B ON A.id=B.idUtente where id=?");
 
-        }
+			statementGiocatore.setInt(1, id);
 
-        return corsoDiLaurea;
-    }
+			ResultSet resultGiocatore = statementGiocatore.executeQuery();
 
-    public Set<Professore> ottieniCommissione(int id) {
-        Set<Professore> commissione = new HashSet<Professore>();
+			if (resultGiocatore.next()) {
+				giocatore = new Giocatore();
+				giocatore.setId(resultGiocatore.getInt("id"));
+				giocatore.setEmail(resultGiocatore.getString("email"));
+				giocatore.setRuolo(Ruolo.from(resultGiocatore.getString("ruolo")));
+				giocatore.setCorsoDiLaurea(ottieniCorsoDiLaurea(resultGiocatore.getInt("corsoDiLaurea")));
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
 
-        try {
-            PreparedStatement statementCommissione = super.getDBConnection().prepareStatement("Select * from " + GIOCATORI_COMMISSIONI_TABLE + " where giocatore=?");
-            
-            statementCommissione.setInt(1, id);
-            
-            ResultSet resultCommissione = statementCommissione.executeQuery();
+		return giocatore;
+	}
 
-            while(resultCommissione.next()) {
-                commissione.add(ottieniProfessore(resultCommissione.getInt("professore")));
-            }
-        } catch (SQLException e) {
+	public int ottieniUtente(String mail) {
+		try {
+			PreparedStatement statementUtente = super.getDBConnection()
+					.prepareStatement("Select * from " + UTENTI_TABLE + " where email=?");
 
-        }
+			statementUtente.setString(1, mail);
 
-        return commissione;
-    }
+			ResultSet resultUtente = statementUtente.executeQuery();
 
-    public Set<Professore> ottieniProfessoriSeguiti(int id) {
-        Set<Professore> professoriSeguiti = new HashSet<Professore>();
+			if (resultUtente.next()) {
+				return resultUtente.getInt("id");
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
 
-        try {
-            PreparedStatement statementProfessoriSeguiti = super.getDBConnection().prepareStatement("Select * from " + GIOCATORI_PROFESSORI_SEGUITI_TABLE + " where giocatore=?");
-            
-            statementProfessoriSeguiti.setInt(1, id);
-            
-            ResultSet resultProfessoriSeguiti = statementProfessoriSeguiti.executeQuery();
+		return -1;
+	}
 
-            while(resultProfessoriSeguiti.next()) {
-                professoriSeguiti.add(ottieniProfessore(resultProfessoriSeguiti.getInt("professore")));
-            }
-        } catch (SQLException e) {
+	public Set<CorsoDiLaurea> ottieniCorsiDiLaurea() {
+		Set<CorsoDiLaurea> corsiDiLaurea = new HashSet<CorsoDiLaurea>();
 
-        }
+		try {
+			PreparedStatement statementCorsi = super.getDBConnection()
+					.prepareStatement("Select * from " + CORSI_DI_LAUREA_TABLE);
 
-        return professoriSeguiti;
-    }
+			ResultSet resultCorsi = statementCorsi.executeQuery();
 
-    public Professore ottieniProfessore(int id) {
-        Professore professore = null;
+			while (resultCorsi.next()) {
+				CorsoDiLaurea corsoDiLaurea = new CorsoDiLaurea();
+				corsoDiLaurea.setId(resultCorsi.getInt("id"));
+				corsoDiLaurea.setCodice(resultCorsi.getString("codice"));
+				corsoDiLaurea.setAnnoAccademico(resultCorsi.getString("annoAccademico"));
+				corsoDiLaurea.setDescrizione(resultCorsi.getString("descrizione"));
 
-        try {
-            PreparedStatement statementProfessore = super.getDBConnection().prepareStatement("Select * from " + PROFESSORI_TABLE + " where giocatore=?");
-            
-            statementProfessore.setInt(1, id);
-            
-            ResultSet resultCommissione = statementProfessore.executeQuery();
+				corsiDiLaurea.add(corsoDiLaurea);
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
 
-            if(resultCommissione.next()) {
-                professore = new Professore();
-                professore.setId(resultCommissione.getInt("id"));
-                professore.setNome(resultCommissione.getString("nome"));
-                professore.setCognome(resultCommissione.getString("cognome"));
-                professore.setEmail(resultCommissione.getString("email"));
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
+		return corsiDiLaurea;
+	}
 
-        return professore;
-    }
+	public Set<Professore> ottieniProfessoriDaCorsiDiLaurea(int id) {
+		Set<Professore> professori = new HashSet<Professore>();
+		
+		try {
+			PreparedStatement statementProfessori = super.getDBConnection()
+					.prepareStatement("Select * from " + PROFESSORI_CORSI_DI_LAUREA_TABLE + " where corsoDiLaurea=?");
+			statementProfessori.setInt(1, id);
+			ResultSet resultProfessori = statementProfessori.executeQuery();
 
-    public Set<Classifica> ottieniClassifiche(int id) {
-        Set<Classifica> classifiche = new HashSet<Classifica>();
-        ClassificheController cc = new ClassificheController();
+			while (resultProfessori.next()) {
+				Professore professore = this.ottieniProfessore(resultProfessori.getInt("id"));
+				professori.add(professore);
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		
+		return professori;
+	}
 
-        try {
-            PreparedStatement statementClassifiche = super.getDBConnection().prepareStatement("Select * from " + GIOCATORI_CLASSIFICHE_TABLE + " where giocatore=?");
-            
-            statementClassifiche.setInt(1, id);
-            
-            ResultSet resultClassifiche = statementClassifiche.executeQuery();
+	private CorsoDiLaurea ottieniCorsoDiLaurea(int id) {
+		CorsoDiLaurea corsoDiLaurea = null;
 
-            while(resultClassifiche.next()) {
-                classifiche.add(cc.ottieniClassifica(resultClassifiche.getInt("classifica")));
-            }
-        } catch (SQLException e) {
+		try {
+			PreparedStatement statementCorsoDiLaurea = super.getDBConnection()
+					.prepareStatement("Select * from " + CORSI_DI_LAUREA_TABLE + " where id=?");
 
-        }
+			statementCorsoDiLaurea.setInt(1, id);
 
-        return classifiche;
-    }
-    
-    public static void main(String[] args) {
+			ResultSet resultCorsoDiLaurea = statementCorsoDiLaurea.executeQuery();
 
-        //sono stato obbligato ad inserire gli id perché nelle tabelle di mapping i giocatori compaiono con i loro ID
-        //  nelle query come "ottieniClassifica" è quindi necessario l'id e non la mail
-        //  per ora ho inserito gli id solamente in Giocatore; sarà necessario farlo anche su tutte quelle entità con tabelle di mapping:
-        //      professore, classifiche, eventiavvenuti, votazioni, azionisignificative, corsodilaurea
+			if (resultCorsoDiLaurea.next()) {
+				corsoDiLaurea = new CorsoDiLaurea();
+				corsoDiLaurea.setId(resultCorsoDiLaurea.getInt("id"));
+				corsoDiLaurea.setCodice(resultCorsoDiLaurea.getString("codice"));
+				corsoDiLaurea.setAnnoAccademico(resultCorsoDiLaurea.getString("annoAccademico"));
+				corsoDiLaurea.setDescrizione(resultCorsoDiLaurea.getString("descrizione"));
+			}
+		} catch (SQLException e) {
 
+		}
 
-        //strategia possibile per il lazy load:
-        //  caricare SOLO i tipi primitivi; tutte le entità composte (dotate quindi di classe) saranno caricate al bisogno
-        //rivedere quindi CorsoDiLaurea: nel metodo "ottieniGiocatore" di questa classe è caricato automaticamente!!!
+		return corsoDiLaurea;
+	}
 
-        //prime versione dei test
+	public Set<Professore> ottieniCommissione(int id) {
+		Set<Professore> commissione = new HashSet<Professore>();
 
-        GestioneGiocatoreController ggc = new GestioneGiocatoreController();
+		try {
+			PreparedStatement statementCommissione = super.getDBConnection()
+					.prepareStatement("Select * from " + GIOCATORI_COMMISSIONI_TABLE + " where giocatore=?");
 
-        //int id = ggc.aggiungiGiocatore("a@b.c", "password");
+			statementCommissione.setInt(1, id);
 
-        Giocatore g = ggc.ottieniGiocatore(3);
+			ResultSet resultCommissione = statementCommissione.executeQuery();
 
-        System.out.println(g.getEmail());
-        System.out.println(g.getRuolo());
-    }
+			while (resultCommissione.next()) {
+				commissione.add(ottieniProfessore(resultCommissione.getInt("professore")));
+			}
+		} catch (SQLException e) {
+
+		}
+
+		return commissione;
+	}
+
+	public Set<Professore> ottieniProfessoriSeguiti(int id) {
+		Set<Professore> professoriSeguiti = new HashSet<Professore>();
+
+		try {
+			PreparedStatement statementProfessoriSeguiti = super.getDBConnection()
+					.prepareStatement("Select * from " + GIOCATORI_PROFESSORI_SEGUITI_TABLE + " where giocatore=?");
+
+			statementProfessoriSeguiti.setInt(1, id);
+
+			ResultSet resultProfessoriSeguiti = statementProfessoriSeguiti.executeQuery();
+
+			while (resultProfessoriSeguiti.next()) {
+				professoriSeguiti.add(ottieniProfessore(resultProfessoriSeguiti.getInt("professore")));
+			}
+		} catch (SQLException e) {
+
+		}
+
+		return professoriSeguiti;
+	}
+
+	public Professore ottieniProfessore(int id) {
+		Professore professore = null;
+
+		try {
+			PreparedStatement statementProfessore = super.getDBConnection()
+					.prepareStatement("Select * from " + PROFESSORI_TABLE + " where id=?");
+
+			statementProfessore.setInt(1, id);
+
+			ResultSet resultCommissione = statementProfessore.executeQuery();
+
+			if (resultCommissione.next()) {
+				professore = new Professore();
+				professore.setId(resultCommissione.getInt("id"));
+				professore.setNome(resultCommissione.getString("nome"));
+				professore.setCognome(resultCommissione.getString("cognome"));
+				professore.setEmail(resultCommissione.getString("email"));
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+
+		return professore;
+	}
+
+	public Set<Classifica> ottieniClassifiche(int id) {
+		Set<Classifica> classifiche = new HashSet<Classifica>();
+		ClassificheController cc = new ClassificheController();
+
+		try {
+			PreparedStatement statementClassifiche = super.getDBConnection()
+					.prepareStatement("Select * from " + GIOCATORI_CLASSIFICHE_TABLE + " where giocatore=?");
+
+			statementClassifiche.setInt(1, id);
+
+			ResultSet resultClassifiche = statementClassifiche.executeQuery();
+
+			while (resultClassifiche.next()) {
+				classifiche.add(cc.ottieniClassifica(resultClassifiche.getInt("classifica")));
+			}
+		} catch (SQLException e) {
+
+		}
+
+		return classifiche;
+	}
+
+	public static void main(String[] args) {
+
+		// sono stato obbligato ad inserire gli id perché nelle tabelle di mapping i
+		// giocatori compaiono con i loro ID
+		// nelle query come "ottieniClassifica" è quindi necessario l'id e non la mail
+		// per ora ho inserito gli id solamente in Giocatore; sarà necessario farlo
+		// anche su tutte quelle entità con tabelle di mapping:
+		// professore, classifiche, eventiavvenuti, votazioni, azionisignificative,
+		// corsodilaurea
+
+		// strategia possibile per il lazy load:
+		// caricare SOLO i tipi primitivi; tutte le entità composte (dotate quindi di
+		// classe) saranno caricate al bisogno
+		// rivedere quindi CorsoDiLaurea: nel metodo "ottieniGiocatore" di questa classe
+		// è caricato automaticamente!!!
+
+		// prime versione dei test
+
+		GestioneGiocatoreController ggc = new GestioneGiocatoreController();
+
+		// int id = ggc.aggiungiGiocatore("a@b.c", "password");
+
+		Giocatore g = ggc.ottieniGiocatore(3);
+
+		System.out.println(g.getEmail());
+		System.out.println(g.getRuolo());
+	}
 }
