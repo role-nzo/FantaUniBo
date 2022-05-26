@@ -5,7 +5,7 @@ import beans.*;
  */
 public interface IClassifiche {
 
-    public void aggiungiClassifica(ClassificaPrivata classifica);
+    public void aggiungiClassifica(ClassificaPrivata classifica, String chiave);
 
     public void partecipaClassifica(String email, ClassificaPrivata classifica, String chiave);
 

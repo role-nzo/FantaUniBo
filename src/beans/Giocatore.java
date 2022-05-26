@@ -3,6 +3,9 @@ package beans;
 import java.util.*;
 import java.util.regex.Pattern;
 
+import controller.ClassificheController;
+import controller.GestioneGiocatoreController;
+
 public class Giocatore extends Utente {
 
     private static final Pattern patternEmail = Pattern.compile(
@@ -23,9 +26,14 @@ public class Giocatore extends Utente {
 
     // FIXME? - E' bella come soluzione? No, funziona? chapeau
     private static String validateEmail(String email) {
+
+        //FIXME MORE
+        return email;
+        /*
         if (!email.endsWith("unibo.it") || !patternEmail.matcher(email).find())
             throw new IllegalArgumentException();
         return email;
+        */
     }
 
     public Giocatore(String email) {
@@ -47,6 +55,9 @@ public class Giocatore extends Utente {
     }
 
     public Set<Professore> getProfessoriSeguiti() {
+        if(professoriSeguiti == null)
+            professoriSeguiti = new GestioneGiocatoreController().ottieniProfessoriSeguiti(this.getId());
+
         return professoriSeguiti;
     }
 
@@ -57,6 +68,9 @@ public class Giocatore extends Utente {
     }
 
     public Set<Professore> getCommissione() {
+        if(commissione == null)
+            commissione = new GestioneGiocatoreController().ottieniCommissione(this.getId());
+
         return commissione;
     }
 
@@ -75,6 +89,9 @@ public class Giocatore extends Utente {
     }
 
     public Set<Classifica> getClassifichePrivate() {
+        if(classifichePrivate == null)
+            classifichePrivate = new GestioneGiocatoreController().ottieniClassifiche(this.getId());
+
         return classifichePrivate;
     }
 

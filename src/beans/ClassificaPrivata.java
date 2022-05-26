@@ -1,26 +1,32 @@
 package beans;
 
-import java.util.*;
+import java.util.Set;
+
+import controller.ClassificheController;
+
+import java.util.HashSet;
 
 public class ClassificaPrivata extends Classifica{
 
-    Set<Giocatore> giocatori;
+    Set<Giocatore> giocatori = null;
     
     public ClassificaPrivata() {
-        this.giocatori = new HashSet<Giocatore>();
     }
 
     public ClassificaPrivata(String nome) {
         super(nome);
-        this.giocatori = new HashSet<Giocatore>();
     }
 
     public Set<Giocatore> getGiocatori(){
+        if(giocatori == null) {
+            giocatori = new ClassificheController().ottieniGiocatori();
+        }
+
         return giocatori;
     }
 
     public Set<Giocatore> setGiocatori(){
         return giocatori;
     }
-    
+
 }

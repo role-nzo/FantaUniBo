@@ -42,14 +42,4 @@ public class DBController {
             dbConnection = openDBConnection();
         return dbConnection;
     }
-
-    public static void main(String[] args) {
-        Connection a = new DBController().getDBConnection();
-        System.out.println(a);
-        try {
-            a.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

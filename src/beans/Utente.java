@@ -1,6 +1,7 @@
 package beans;
 public class Utente {
     
+    private int id;
     private String email;
     private Ruolo ruolo;
 
@@ -8,6 +9,14 @@ public class Utente {
 
     public Utente(String email){
         this.email = email;
+    }
+
+    public int getId(){
+        return id;
+    }
+
+    public void setId(int id){
+        this.id = id; 
     }
 
     public String getEmail(){

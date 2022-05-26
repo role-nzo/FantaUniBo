@@ -6,6 +6,14 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch GestioneGiocatoreController",
+            "request": "launch",
+            "mainClass": "controller.GestioneGiocatoreController",
+            "projectName": "FantaUniBo_3e70c5ec",
+            "shortenCommandLine": "jarmanifest"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}",
