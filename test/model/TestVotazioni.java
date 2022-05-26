@@ -1,4 +1,4 @@
-package test.model;
+package model;
 
 import static org.junit.Assert.*;
 
@@ -13,12 +13,12 @@ import beans.*;
 
 public class TestVotazioni {
  
-    private VotazioneAzioneSignificativa azioneGlobale;
-    private VotazioneAzioneSignificativa azioneIngInf;
-    private VotazioneEventoAvvenuto evento;
-    private Professore patella;
+    private VotazioneAzioneSignificativa votazAzioneGlobale;
+    private VotazioneAzioneSignificativa votazAzioneIngInf;
+    private VotazioneEventoAvvenuto votazEvento;
+    private Professore professore;
     private CorsoDiLaurea ingInf;
-    private AzioneSignificativa cascato;
+    private AzioneSignificativa azioneSign;
     private Risposta risposta;
     private Giocatore giocatore;
     private LocalDateTime dataOra;
@@ -26,68 +26,77 @@ public class TestVotazioni {
     @Before
     public void SetUp(){
         dataOra = LocalDateTime.now();
-        giocatore = new Giocatore();
-
-        azioneGlobale = new VotazioneAzioneSignificativa("Votazione per azione globale", dataOra);
+        // Creo una votazione per aggiungere una nuova azione significativa con visibilita' globale (tutti i corsi di laurea)
+        votazAzioneGlobale = new VotazioneAzioneSignificativa("Il professore balla a lezione", dataOra);
         
+         // Creo una votazione per aggiungere una nuova azione significativa con visibilita' al corso Ing. Inf.
         ingInf = new CorsoDiLaurea("12345","2021/22","Ingegneria Informatica");
-        azioneIngInf = new VotazioneAzioneSignificativa("Votazione per azione ad Ing. Inf.", ingInf, dataOra);
+        votazAzioneIngInf = new VotazioneAzioneSignificativa("Il professore arriva in ritardo a lezione", ingInf, dataOra);
         
-        patella = new Professore("Marco", "Patella", "suaemail@unibo.it");
-        cascato = new AzioneSignificativa(100, ingInf,"Il prof casca a lezione");
-        evento = new VotazioneEventoAvvenuto("Votazione Patella s'è cascato", patella, cascato, dataOra );
+        // Creo una votazione per validare un evento effettuato da un professore
+        professore = new Professore("Pasquale", "Motivetto", "pasquale.motivetto@unibo.it");
+        azioneSign = new AzioneSignificativa(500, ingInf,"Il professore canta a lezione");
+        votazEvento = new VotazioneEventoAvvenuto("Votazione Pasquale ha cantato a lezione", professore, azioneSign, dataOra);
 
-        risposta = new Risposta(ValoreRisposta.SI.value, giocatore, azioneGlobale);
+        // Creo una risposta alla votazione per azione significativa globale
+        giocatore = new Giocatore("dario.lampa@studio.unibo.it");
+        risposta = new Risposta(ValoreRisposta.SI.value, giocatore, votazAzioneGlobale);
 
     }
 
     @Test
     public void testGetter(){
-        assertEquals("Votazione per azione globale", azioneGlobale.getDescrizione());
-        assertEquals("Votazione Patella s'è cascato", evento.getDescrizione());
+        assertEquals("Il professore balla a lezione", votazAzioneGlobale.getDescrizione());
+        assertEquals(true, votazAzioneGlobale.getCorsoDiLaurea().isEmpty());
+        assertEquals(dataOra, votazAzioneGlobale.getTimestamp());
 
-        assertEquals(dataOra, azioneGlobale.getTimestamp());
+        assertEquals("Il professore arriva in ritardo a lezione", votazAzioneIngInf.getDescrizione());
+        assertEquals(true, votazAzioneIngInf.getCorsoDiLaurea().isPresent());
+        assertEquals(ingInf, votazAzioneIngInf.getCorsoDiLaurea().get());
+        assertEquals(dataOra, votazAzioneIngInf.getTimestamp());
 
-        assertEquals(true, azioneIngInf.getCorsoDiLaurea().isPresent());
-        assertEquals(ingInf, azioneIngInf.getCorsoDiLaurea().get());
-
-        assertEquals(true, azioneGlobale.getCorsoDiLaurea().isEmpty());
+        assertEquals("Votazione Pasquale ha cantato a lezione", votazEvento.getDescrizione());
+        assertEquals(azioneSign, votazEvento.getAzioneSignificativa());
+        assertEquals(professore, votazEvento.getProfessore());
+        assertEquals(dataOra, votazEvento.getTimestamp());
     }
 
     @Test
     public void testSetter(){
 
-        azioneGlobale.setDescrizione("Nuova descrizione per la votazione");
-        assertEquals("Nuova descrizione per la votazione", azioneGlobale.getDescrizione());
+        // CHANGE? - I setter non ci sono perche' non avrebbe senso metterli, una volta che la votazione e' creata non si cambia
 
-        
+        votazAzioneGlobale.setDescrizione("Nuova descrizione per la votazione");
+        assertEquals("Nuova descrizione per la votazione", votazAzioneGlobale.getDescrizione());
 
     }
 
     @Test
     public void testIsAmmesso(){
-        assertEquals(true, azioneGlobale.isAmmesso(ValoreRisposta.SI.value));
-        assertEquals(false, azioneGlobale.isAmmesso(ValoreRisposta.NONSO.value));
+        assertEquals(true, votazAzioneGlobale.isAmmesso(ValoreRisposta.SI.value));
+        assertEquals(false, votazAzioneGlobale.isAmmesso(ValoreRisposta.NONSO.value));
 
-        assertEquals(true, evento.isAmmesso(3));
-        assertEquals(true, evento.isAmmesso(ValoreRisposta.NONSO.value));
-        assertEquals(false, evento.isAmmesso(ValoreRisposta.SI.value));
+        assertEquals(true, votazEvento.isAmmesso(3));
+        assertEquals(true, votazEvento.isAmmesso(ValoreRisposta.NONSO.value));
+        assertEquals(false, votazEvento.isAmmesso(ValoreRisposta.SI.value));
     }
 
-
-    /*
-
-    AGGIUNGERE?
-
     @Test
-    public void testRispondi(){
+    public void testRisposteOKandKO(){ 
         
-        azioneGlobale.rispondi(risposta);
+        // Test OK - si puo rispondere alla votazione perche' il valore della risposta e' tra quelli ammessi
+
+        votazAzioneGlobale.rispondi(risposta);
         Set<Risposta> risposte = new HashSet<Risposta>();
         risposte.add(risposta);
 
-        assertEquals(risposte, azioneGlobale.getRisposte());
+        assertEquals(risposte, votazAzioneGlobale.getRisposte());
+
+        // Test KO - non si puo' rispondere ad una votazione per azioneSignificativa con una risposta relativa agli eventi avvenuti,
+        // infatti isAmmesso == false in testIsAmmesso
+        
+        assertThrows( IllegalArgumentException.class, () -> { new Risposta(ValoreRisposta.NONSO.value, giocatore, votazAzioneGlobale); });
     }
-    */
+    
 
 }

@@ -14,6 +14,16 @@ public class Professore {
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
+        this.corsiDiLaurea = new HashSet<CorsoDiLaurea>();
+        this.eventiAvvenuti = new HashSet<EventoAvvenuto>();
+    }
+
+    public Professore(String nome, String cognome, String email, Set<CorsoDiLaurea> corsiDiLaurea){
+        this.nome = nome;
+        this.cognome = cognome;
+        this.email = email;
+        this.corsiDiLaurea = corsiDiLaurea;
+        this.eventiAvvenuti = new HashSet<EventoAvvenuto>();
     }
 
     public String getNome(){

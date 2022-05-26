@@ -9,19 +9,19 @@ import interfaces.IInserimentoDati;
 public class InserimentoDatiController extends DBController implements IInserimentoDati{
 
     @Override
-    public void inserisciCorsoDiLaurea(CorsoDiLaurea corso) {
+    public void inserisciCorsoDiLaurea(String email, CorsoDiLaurea corso) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void inserisciCommissione(Set<Professore> commissione) {
+    public void inserisciCommissione(String email, Set<Professore> commissione) {
         // TODO Auto-generated method stub
         
     }
 
     @Override
-    public void inserisciProfessoriSeguiti(Set<Professore> professoriSeguiti) {
+    public void inserisciProfessoriSeguiti(String email, Set<Professore> professoriSeguiti) {
         // TODO Auto-generated method stub
         
     }

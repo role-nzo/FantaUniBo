@@ -8,9 +8,9 @@ import beans.*;
  */
 public interface IInserimentoDati {
 
-    public void inserisciCorsoDiLaurea(CorsoDiLaurea corso);
+    public void inserisciCorsoDiLaurea(String email, CorsoDiLaurea corso);
 
-    public void inserisciCommissione(Set<Professore> commissione);
+    public void inserisciCommissione(String email, Set<Professore> commissione);
 
-    public void inserisciProfessoriSeguiti(Set<Professore> professoriSeguiti);
+    public void inserisciProfessoriSeguiti(String email, Set<Professore> professoriSeguiti);
 }
