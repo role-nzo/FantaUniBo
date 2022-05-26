@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch TestCollaudo",
+            "request": "launch",
+            "mainClass": "collaudo.TestCollaudo",
+            "projectName": "FantaUniBo_3e70c5ec"
+        },
+        {
+            "type": "java",
             "name": "Launch GestioneGiocatoreController",
             "request": "launch",
             "mainClass": "controller.GestioneGiocatoreController",

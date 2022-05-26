@@ -34,6 +34,19 @@ public class GestioneGiocatoreController extends DBController implements IGestio
         
     }
 
+    //FIXME: per i test
+    public void eliminaGiocatore(String email) {
+        try {
+            PreparedStatement statementUtente = super.getDBConnection().prepareStatement("DELETE FROM " + UTENTI_TABLE + " WHERE email=?");
+            
+            statementUtente.setString(1, email);
+            
+            statementUtente.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public int aggiungiGiocatore(String email, String password) {
         int id = -1;
 
@@ -66,13 +79,13 @@ public class GestioneGiocatoreController extends DBController implements IGestio
         return id;
     }
 
+    //FIXME: MA ottieniUtente?????
     @Override
     public Giocatore ottieniGiocatore(int id) {
         Giocatore giocatore = null;
 
         try {
             PreparedStatement statementGiocatore = super.getDBConnection().prepareStatement("Select * from " + UTENTI_TABLE + " AS A JOIN " + GIOCATORI_TABLE + " AS B ON A.id=B.idUtente where id=?");
-            //PreparedStatement statementGiocatore = super.getDBConnection().prepareStatement("Select * from " + GIOCATORI_TABLE + " where idUtente=?");
             
             statementGiocatore.setInt(1, id);
             

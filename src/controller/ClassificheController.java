@@ -2,6 +2,8 @@ package controller;
 
 import interfaces.IClassifiche;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
@@ -17,17 +19,41 @@ public class ClassificheController extends DBController implements IClassifiche 
     private static final String GIOCATORI_CLASSIFICHE_TABLE = "giocatori_classifichePrivate";
 
     @Override
-    public void aggiungiClassifica(ClassificaPrivata classifica, String chiave) {
+    public int aggiungiClassifica(ClassificaPrivata classifica, String chiave) {
         try {
             PreparedStatement statementClassifica = super.getDBConnection().prepareStatement("INSERT INTO " + CLASSIFICHE_TABLE + " (nome, hashChiave) VALUES (?, ?)");
             
             statementClassifica.setString(1, classifica.getNome());
             statementClassifica.setString(2, chiave);
+
+            statementClassifica.executeUpdate();
             
+            ResultSet generatedKeys = statementClassifica.getGeneratedKeys();
+            
+            if (generatedKeys.next()) {
+                classifica.setId(generatedKeys.getInt(1));
+                return classifica.getId();
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return -1;
+    }
+
+    //FIXME: per i test
+    public int eliminaClassifica(int idClassifica) {
+        try {
+            PreparedStatement statementClassifica = super.getDBConnection().prepareStatement("DELETE FROM " + CLASSIFICHE_TABLE + " WHERE id=?");
+            
+            statementClassifica.setInt(1, idClassifica);
+
             statementClassifica.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
+
+        return -1;
     }
 
     @Override
@@ -39,10 +65,10 @@ public class ClassificheController extends DBController implements IClassifiche 
             statementClassifica.setInt(1, classifica.getId());
             
             ResultSet resultClassifica = statementClassifica.executeQuery();
-
+            
             if(resultClassifica.next()) {
-                if(chiave == resultClassifica.getString("hashPassword")) {
-                    PreparedStatement statementGiocatore = super.getDBConnection().prepareStatement("INSERTO INTO " + GIOCATORI_CLASSIFICHE_TABLE + "(giocatore, classificaPrivata) VALUES (?,?)");
+                if(chiave.equals(resultClassifica.getString("hashChiave"))) {
+                    PreparedStatement statementGiocatore = super.getDBConnection().prepareStatement("INSERT INTO " + GIOCATORI_CLASSIFICHE_TABLE + " (giocatore, classificaPrivata) VALUES (?,?)");
 
                     statementGiocatore.setInt(1, idGiocatore);
                     statementGiocatore.setInt(2, classifica.getId());
@@ -61,7 +87,7 @@ public class ClassificheController extends DBController implements IClassifiche 
     @Override
     public void abbandonaClassifica(int idGiocatore, ClassificaPrivata classifica) {
         try {
-            PreparedStatement statementGiocatore = super.getDBConnection().prepareStatement("DELETE FROM " + GIOCATORI_CLASSIFICHE_TABLE + "WHERE giocatore=? AND classificaPrivata=?");
+            PreparedStatement statementGiocatore = super.getDBConnection().prepareStatement("DELETE FROM " + GIOCATORI_CLASSIFICHE_TABLE + " WHERE giocatore=? AND classificaPrivata=?");
 
             statementGiocatore.setInt(1, idGiocatore);
             statementGiocatore.setInt(2, classifica.getId());

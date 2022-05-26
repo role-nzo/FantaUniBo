@@ -11,6 +11,8 @@ import org.junit.Test;
 
 import beans.*;
 import controller.ClassificheController;
+import controller.GestioneAmministratoreController;
+import controller.GestioneGiocatoreController;
 
 public class TestCollaudo {
  
@@ -79,14 +81,33 @@ public class TestCollaudo {
     @Test
     public void testClassifiche(){
         ClassificheController controllerClassifiche = new ClassificheController();
+        GestioneGiocatoreController controllerGiocatore = new GestioneGiocatoreController();
 
-        controllerClassifiche.aggiungiClassifica(classifica, "chiave");
+        int idGiocatore = controllerGiocatore.aggiungiGiocatore("pippo@pluto.it", "pippo!");
+        Giocatore giocatore = controllerGiocatore.ottieniGiocatore(idGiocatore);
 
-        controllerClassifiche.partecipaClassifica("alfredo.dalcaldo@studio.unibo.it", classifica, "chiave");
+        assertEquals("pippo@pluto.it", giocatore.getEmail());
+        assertEquals(0, giocatore.getClassifichePrivate().size());
 
-        Classifica c = controllerClassifiche.ottieniClassifica(23);
+        ClassificaPrivata classifica = new ClassificaPrivata();
+        classifica.setNome("I falliti");
 
-        assertEquals(classifica, c);
+        int idClassifica = controllerClassifiche.aggiungiClassifica(classifica, "ifallimentisiamonoi");
+
+        controllerClassifiche.partecipaClassifica(idGiocatore, classifica, "ifallimenti(non)siamonoi");
+        assertEquals(0, ((ClassificaPrivata) controllerClassifiche.ottieniClassifica(idClassifica)).getGiocatori().size());
+
+        controllerClassifiche.partecipaClassifica(idGiocatore, classifica, "ifallimentisiamonoi");
+        assertEquals(1, ((ClassificaPrivata) controllerClassifiche.ottieniClassifica(idClassifica)).getGiocatori().size());
+
+        controllerClassifiche.abbandonaClassifica(idGiocatore, classifica);
+        assertEquals(0, ((ClassificaPrivata) controllerClassifiche.ottieniClassifica(idClassifica)).getGiocatori().size());
+
+        controllerClassifiche.abbandonaClassifica(idGiocatore, classifica);
+        assertEquals(0, ((ClassificaPrivata) controllerClassifiche.ottieniClassifica(idClassifica)).getGiocatori().size());
+
+        controllerClassifiche.eliminaClassifica(idClassifica);
+        controllerGiocatore.eliminaGiocatore("pippo@pluto.it");
     }
 
     @Test
@@ -96,7 +117,25 @@ public class TestCollaudo {
 
     @Test
     public void testFunzioniAmministratore(){
+        GestioneAmministratoreController controllerAmministratore = new GestioneAmministratoreController();
+        GestioneGiocatoreController controllerGiocatore = new GestioneGiocatoreController();
 
+        int idUtente = controllerGiocatore.aggiungiGiocatore("pippo@pluto.it", "pippo!");
+        Utente utente = controllerGiocatore.ottieniGiocatore(idUtente);
+
+        assertEquals(Ruolo.PARTECIPANTE, utente.getRuolo());
+
+        controllerAmministratore.aggiornaUtente(idUtente, Ruolo.AMMINISTRATORE);
+
+        utente = controllerGiocatore.ottieniGiocatore(idUtente);
+
+        assertEquals(Ruolo.AMMINISTRATORE, utente.getRuolo());
+
+        //controllerGiocatore.eliminaGiocatore("pippo@pluto.it");
     }
 
+
+    public static void main(String[] args) {
+        new TestCollaudo().testFunzioniAmministratore();
+    }
 }
