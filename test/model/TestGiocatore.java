@@ -19,6 +19,7 @@ public class TestGiocatore {
     private CorsoDiLaurea ingInf;
     private Professore prof1;
     private Professore prof2;
+    
     @Before
     public void SetUp(){
 

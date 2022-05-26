@@ -2,7 +2,7 @@ package model;
 
 import static org.junit.Assert.*;
 
-import java.sql.Date;
+import java.util.Date;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,7 +34,7 @@ public class TestProfessore {
         azioneGlobale = new AzioneSignificativa(-50, "Il professore arriva in ritardo di almeno 15 minuti");
         Set<Integer> risposteVincitrici = new HashSet<>();
         risposteVincitrici.add(ValoreRisposta.FALSO.value);
-        evento = new EventoAvvenuto(Date.valueOf(LocalDate.now()), azioneGlobale, professore, risposteVincitrici);
+        evento = new EventoAvvenuto(new Date(), azioneGlobale, professore, risposteVincitrici);
 
     }
 

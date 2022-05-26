@@ -26,14 +26,10 @@ public class Giocatore extends Utente {
 
     // FIXME? - E' bella come soluzione? No, funziona? chapeau
     private static String validateEmail(String email) {
-
-        //FIXME MORE
-        return email;
-        /*
         if (!email.endsWith("unibo.it") || !patternEmail.matcher(email).find())
             throw new IllegalArgumentException();
         return email;
-        */
+        
     }
 
     public Giocatore(String email) {
