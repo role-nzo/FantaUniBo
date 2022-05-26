@@ -17,6 +17,8 @@ public class Giocatore extends Utente {
     public Giocatore() {
         super();
         classifichePrivate = new HashSet<Classifica>();
+        professoriSeguiti = new HashSet<Professore>();
+        commissione = new HashSet<Professore>();
     }
 
     // FIXME? - E' bella come soluzione? No, funziona? chapeau

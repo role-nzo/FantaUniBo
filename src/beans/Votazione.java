@@ -10,7 +10,9 @@ public abstract class Votazione {
     private LocalDateTime timestamp;
     private Set<Risposta> risposte;
 
-    public Votazione() {}
+    public Votazione() {
+        this.risposte = new HashSet<Risposta>();
+    }
 
     public Votazione(String descrizione, LocalDateTime timestamp) {
         this.risposte = new HashSet<Risposta>();
