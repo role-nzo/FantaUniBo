@@ -18,5 +18,9 @@ public class ClassificaPrivata extends Classifica{
     public Set<Giocatore> getGiocatori(){
         return giocatori;
     }
+
+    public Set<Giocatore> setGiocatori(){
+        return giocatori;
+    }
     
 }
