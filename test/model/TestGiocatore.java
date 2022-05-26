@@ -34,7 +34,7 @@ public class TestGiocatore {
         Professore prof3 = new Professore("Bianca", "Neve", "bianca.neve@unibo.it");
         Professore prof4 = new Professore("Domenica", "D'agosto", "domenica.dagosto@unibo.it");
 
-        // Affinche' commissione e professoriSeguiti siano validi, i professori al loro interno devono insegnare (anche) nel corso del giocatore
+        // Affinche' commissione e professoriSeguiti siano validi, i professori devono insegnare (anche) nel corso del giocatore
         prof1.getCorsiDiLaurea().add(ingInf);
         prof2.getCorsiDiLaurea().add(ingInf);
         prof3.getCorsiDiLaurea().add(ingInf);
