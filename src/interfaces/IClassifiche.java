@@ -7,9 +7,11 @@ public interface IClassifiche {
 
     public void aggiungiClassifica(ClassificaPrivata classifica, String chiave);
 
-    public void partecipaClassifica(String email, ClassificaPrivata classifica, String chiave);
+    //FIXME: ho messo id perché la mail non va bene
+    public void partecipaClassifica(int idGiocatore, ClassificaPrivata classifica, String chiave);
 
-    public void abbandonaClassifica(String email, ClassificaPrivata classifica);
+    //FIXME: ho messo id perché la mail non va bene
+    public void abbandonaClassifica(int idGiocatore, ClassificaPrivata classifica);
 
     public Classifica ottieniClassifica(int IDClassifica);
     

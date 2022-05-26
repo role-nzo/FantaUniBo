@@ -4,6 +4,7 @@ import java.util.*;
 
 public class CorsoDiLaurea {
     
+    private int id;
     private String codice;
     private String annoAccademico;
     private String descrizione;
@@ -22,6 +23,14 @@ public class CorsoDiLaurea {
         this.descrizione = descrizione;
         this.professori = new HashSet<Professore>();
         this.giocatori = new HashSet<Giocatore>();
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Universita getUniversita(){

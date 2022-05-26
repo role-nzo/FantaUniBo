@@ -11,11 +11,5 @@ public class SincronizzaDatiController extends DBController implements ISincroni
         // TODO Auto-generated method stub
         
     }
-
-    @Override
-    public Connection getDBConnection() {
-        // TODO Auto-generated method stub
-        return null;
-    }
     
 }

@@ -80,6 +80,7 @@ public class GestioneGiocatoreController extends DBController implements IGestio
 
             if(resultGiocatore.next()) {
                 giocatore = new Giocatore();
+                giocatore.setId(resultGiocatore.getInt("id"));
                 giocatore.setEmail(resultGiocatore.getString("email"));
                 giocatore.setRuolo(Ruolo.from(resultGiocatore.getString("ruolo")));
                 giocatore.setCorsoDiLaurea(ottieniCorsoDiLaurea(resultGiocatore.getInt("corsoDiLaurea")));
@@ -103,6 +104,7 @@ public class GestioneGiocatoreController extends DBController implements IGestio
 
             if(resultCorsoDiLaurea.next()) {
                 corsoDiLaurea = new CorsoDiLaurea();
+                corsoDiLaurea.setId(resultCorsoDiLaurea.getInt("id"));
                 corsoDiLaurea.setCodice(resultCorsoDiLaurea.getString("codice"));
                 corsoDiLaurea.setAnnoAccademico(resultCorsoDiLaurea.getString("annoAccademico"));
                 corsoDiLaurea.setDescrizione(resultCorsoDiLaurea.getString("descrizione"));
@@ -166,6 +168,7 @@ public class GestioneGiocatoreController extends DBController implements IGestio
 
             if(resultCommissione.next()) {
                 professore = new Professore();
+                professore.setId(resultCommissione.getInt("id"));
                 professore.setNome(resultCommissione.getString("nome"));
                 professore.setCognome(resultCommissione.getString("cognome"));
                 professore.setEmail(resultCommissione.getString("email"));

@@ -6,6 +6,7 @@ import java.util.Set;
 
 public abstract class Votazione {
 
+    private int id;
     private String descrizione;
     private LocalDateTime timestamp;
     private Set<Risposta> risposte;
@@ -18,6 +19,14 @@ public abstract class Votazione {
         this.risposte = new HashSet<Risposta>();
         this.descrizione = descrizione;
         this.timestamp = timestamp;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     public boolean Convalida(){

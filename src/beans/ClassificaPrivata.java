@@ -4,11 +4,10 @@ import java.util.Set;
 
 import controller.ClassificheController;
 
-import java.util.HashSet;
-
 public class ClassificaPrivata extends Classifica{
 
-    Set<Giocatore> giocatori = null;
+    private int id;
+    private Set<Giocatore> giocatori = null;
     
     public ClassificaPrivata() {
     }
@@ -17,9 +16,17 @@ public class ClassificaPrivata extends Classifica{
         super(nome);
     }
 
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Set<Giocatore> getGiocatori(){
         if(giocatori == null) {
-            giocatori = new ClassificheController().ottieniGiocatori();
+            giocatori = new ClassificheController().ottieniGiocatori(this.getId());
         }
 
         return giocatori;

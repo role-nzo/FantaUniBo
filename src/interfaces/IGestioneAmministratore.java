@@ -5,6 +5,7 @@ import beans.*;
  */
 public interface IGestioneAmministratore {
 
-    public void aggiornaUtente(String email, Ruolo newRuolo);
+    //FIXME: inserito id utente
+    public void aggiornaUtente(int idUtente, Ruolo newRuolo);
 
 }

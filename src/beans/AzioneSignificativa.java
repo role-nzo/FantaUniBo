@@ -4,6 +4,7 @@ import java.util.*;
 
 public class AzioneSignificativa {
 
+    private int id;
     private int CFU;
     private String descrizione;
     private Optional<CorsoDiLaurea> corsoDiLaurea;
@@ -20,6 +21,14 @@ public class AzioneSignificativa {
         this.CFU = CFU;
         this.descrizione = descrizione;
         this.corsoDiLaurea = Optional.of(corsoDiLaurea);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getCFU() {

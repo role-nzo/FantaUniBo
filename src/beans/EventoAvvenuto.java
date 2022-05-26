@@ -4,6 +4,7 @@ import java.util.*;
 
 public class EventoAvvenuto {
     
+    private int id;
     private Date data;
     private Set<Integer> valoriRisposteVincitrici;
     private Professore professore;
@@ -17,6 +18,14 @@ public class EventoAvvenuto {
         this.data = data;
         this.professore = professore;
         this.valoriRisposteVincitrici = valoriRisposteVincitrici;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public AzioneSignificativa getAzioneSignificativa(){

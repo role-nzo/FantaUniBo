@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Professore {
 
+    private int id;
     private String nome;
     private String cognome;
     private String email;
@@ -29,6 +30,14 @@ public class Professore {
         this.email = email;
         this.corsiDiLaurea = new HashSet<CorsoDiLaurea>();
         this.eventiAvvenuti = new HashSet<EventoAvvenuto>();
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome(){
