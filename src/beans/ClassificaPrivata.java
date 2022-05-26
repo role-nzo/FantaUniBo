@@ -6,10 +6,13 @@ public class ClassificaPrivata extends Classifica{
 
     Set<Giocatore> giocatori;
     
-    public ClassificaPrivata() {}
+    public ClassificaPrivata() {
+        this.giocatori = new HashSet<Giocatore>();
+    }
 
     public ClassificaPrivata(String nome) {
         super(nome);
+        this.giocatori = new HashSet<Giocatore>();
     }
 
     public Set<Giocatore> getGiocatori(){

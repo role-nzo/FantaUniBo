@@ -9,9 +9,11 @@ public class EventoAvvenuto {
     private Professore professore;
     private AzioneSignificativa azioneSignificativa;
 
-    public EventoAvvenuto() {}
+    public EventoAvvenuto() {
+        this.valoriRisposteVincitrici = new HashSet<Integer>();
+    }
 
-    public EventoAvvenuto(Date data, AzioneSignificativa azione,Professore professore, Set<Integer> valoriRisposteVincitrici) {
+    public EventoAvvenuto(Date data, AzioneSignificativa azione, Professore professore, Set<Integer> valoriRisposteVincitrici) {
         this.data = data;
         this.professore = professore;
         this.valoriRisposteVincitrici = valoriRisposteVincitrici;

@@ -8,9 +8,14 @@ public class Universita {
     private String citta;
     private Set<CorsoDiLaurea> corsiDiLaurea;
 
+    public Universita(){
+        this.corsiDiLaurea = new HashSet<CorsoDiLaurea>();
+    }
+
     public Universita(String descrizione, String citta) {
         this.descrizione = descrizione;
         this.citta = citta;
+        this.corsiDiLaurea = new HashSet<CorsoDiLaurea>();
     }
 
     public String getDescrizione() {

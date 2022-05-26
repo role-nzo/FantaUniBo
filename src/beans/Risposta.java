@@ -28,19 +28,4 @@ public class Risposta {
         return votazione;
     }
 
-    /*
-    CHANGE? Aggiungere i setter?
-
-    public void setVotazione(Votazione votazione){
-        this.votazione = votazione;
-    }
-
-    public void setGiocatore(Giocatore giocatore){
-        this.giocatore = giocatore;
-    }
-
-    public void setValore(int valore){
-        this.valore = valore;
-    }
-    */
 }

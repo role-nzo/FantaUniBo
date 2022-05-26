@@ -10,10 +10,7 @@ public class Professore {
     private Set<CorsoDiLaurea> corsiDiLaurea;
     private Set<EventoAvvenuto> eventiAvvenuti;
 
-    public Professore(String nome, String cognome, String email){
-        this.nome = nome;
-        this.cognome = cognome;
-        this.email = email;
+    public Professore(){
         this.corsiDiLaurea = new HashSet<CorsoDiLaurea>();
         this.eventiAvvenuti = new HashSet<EventoAvvenuto>();
     }
@@ -22,7 +19,15 @@ public class Professore {
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
-        this.corsiDiLaurea = corsiDiLaurea;
+        this.corsiDiLaurea = new HashSet<CorsoDiLaurea>();
+        this.eventiAvvenuti = new HashSet<EventoAvvenuto>();
+    }
+
+    public Professore(String nome, String cognome, String email){
+        this.nome = nome;
+        this.cognome = cognome;
+        this.email = email;
+        this.corsiDiLaurea = new HashSet<CorsoDiLaurea>();
         this.eventiAvvenuti = new HashSet<EventoAvvenuto>();
     }
 

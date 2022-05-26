@@ -11,12 +11,17 @@ public class CorsoDiLaurea {
     private Set<Giocatore> giocatori;
     private Universita universita;
     
-    public CorsoDiLaurea() {}
+    public CorsoDiLaurea() {
+        this.professori = new HashSet<Professore>();
+        this.giocatori = new HashSet<Giocatore>();
+    }
 
     public CorsoDiLaurea(String codice, String annoAccademico, String descrizione) {
         this.codice = codice;
         this.annoAccademico = annoAccademico;
         this.descrizione = descrizione;
+        this.professori = new HashSet<Professore>();
+        this.giocatori = new HashSet<Giocatore>();
     }
 
     public Universita getUniversita(){
