@@ -1,3 +1,4 @@
+<%@page import="javax.swing.plaf.synth.SynthOptionPaneUI"%>
 <%@page import="javax.*"%>
 <%@page import="java.util.*"%>
 <%@page import="beans.*"%>
@@ -13,17 +14,57 @@
 	boolean badInsert = false; 
 
 	if(session.getAttribute("user") == null) {
+		//non è loggato
 		response.sendRedirect("login.jsp");
+		return;
 	}
 
 	if(session.getAttribute("corsiDiLaurea") == null) {
+		//salvo in cache nella sessione di laurea
 		session.setAttribute("corsiDiLaurea", new GestioneGiocatoreController().ottieniCorsiDiLaurea());
+	}
+	
+	GestioneGiocatoreController ggc = new GestioneGiocatoreController();
+	
+	Giocatore giocatore = ggc.ottieniGiocatore((int) session.getAttribute("user"));
+	
+	if(giocatore == null) {
+		//è amministratore
+		response.sendRedirect("homeAmministratore.jsp");
+		return;
+	}
+	
+	if(giocatore.getCorsoDiLaurea() != null) {
+		//dati già inseriti
+		response.sendRedirect("homeGiocatore.jsp");
+		return;
 	}
 	
 	/*if(request.getParameter("email") != null && request.getParameter("password") != null) {
 		new RegistrazioneController().registraUtente(request.getParameter("email"), request.getParameter("password"));
 		response.sendRedirect("login.jsp");
 	}*/
+	
+	if(request.getParameter("corsoDiLaurea") != null && request.getParameter("commissione") != null && request.getParameter("professoreSeguito") != null) {
+		InserimentoDatiController idc = new InserimentoDatiController();
+		
+		CorsoDiLaurea corsoDiLaurea = ggc.ottieniCorsoDiLaurea(Integer.parseInt(request.getParameter("corsoDiLaurea")));
+		idc.inserisciCorsoDiLaurea((int) session.getAttribute("user"), corsoDiLaurea); 
+		
+		Set<Professore> commissione = new HashSet<Professore>();
+		for(String p : ((String[]) request.getParameterValues("commissione"))) {
+			commissione.add(ggc.ottieniProfessore(Integer.parseInt(p)));
+		}
+		idc.inserisciCommissione((int) session.getAttribute("user"), commissione);
+		
+		Set<Professore> professoriSeguiti = new HashSet<Professore>();
+		for(String p : ((String[]) request.getParameterValues("professoreSeguito"))) {
+			professoriSeguiti.add(ggc.ottieniProfessore(Integer.parseInt(p)));
+		}
+		idc.inserisciProfessoriSeguiti((int) session.getAttribute("user"), professoriSeguiti);
+		
+		response.sendRedirect("homeGiocatore.jsp");
+	}
 %>
 
 
@@ -48,25 +89,25 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Commissione</label>
-                        <select class="form-select professori" id="commissione1" name="commissione1">
+                        <select class="form-select professori" id="commissione1" name="commissione">
                             <option selected disabled hidden></option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
-                        <select class="form-select professori mt-2" id="commissione2" name="commissione2">
+                        <select class="form-select professori mt-2" id="commissione2" name="commissione">
                             <option selected disabled hidden></option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
-                        <select class="form-select professori mt-2" id="commissione3" name="commissione3">
+                        <select class="form-select professori mt-2" id="commissione3" name="commissione">
                             <option selected disabled hidden></option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
-                        <select class="form-select professori mt-2" id="commissione4" name="commissione4">
+                        <select class="form-select professori mt-2" id="commissione4" name="commissione">
                             <option selected disabled hidden></option>
                             <option value="1">One</option>
                             <option value="2">Two</option>

@@ -17,7 +17,7 @@ public class InserimentoDatiController extends DBController implements IInserime
     @Override
     public void inserisciCorsoDiLaurea(int idGiocatore, CorsoDiLaurea corso) {
         try {
-            PreparedStatement statementGiocatore = super.getDBConnection().prepareStatement("UPDATE " + GIOCATORI_TABLE + " SET corsoDiLaurea=? WHERE id=?");
+            PreparedStatement statementGiocatore = super.getDBConnection().prepareStatement("UPDATE " + GIOCATORI_TABLE + " SET corsoDiLaurea=? WHERE idUtente=?");
             
             statementGiocatore.setInt(1, corso.getId());
             statementGiocatore.setInt(2, idGiocatore);

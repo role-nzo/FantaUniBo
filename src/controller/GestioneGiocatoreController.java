@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.Set;
+import java.util.Arrays;
 import java.util.HashSet;
 
 import interfaces.IGestioneGiocatore;
@@ -22,6 +23,8 @@ public class GestioneGiocatoreController extends DBController implements IGestio
 	private static final String GIOCATORI_PROFESSORI_SEGUITI_TABLE = "giocatori_professoriSeguiti";
 	private static final String PROFESSORI_TABLE = "professori";
 	private static final String PROFESSORI_CORSI_DI_LAUREA_TABLE = "professori_corsiDiLaurea";
+	private static final String EVENTI_AVVENUTI_TABLE = "eventiAvvenuti";
+	private static final String AZIONI_SIGNIFICATIVE_TABLE = "azioniSignificative";
 
 	@Override
 	public int getPunteggio(String email) {
@@ -110,6 +113,30 @@ public class GestioneGiocatoreController extends DBController implements IGestio
 
 		return giocatore;
 	}
+	
+	public Utente ottieniUtente(int id) {
+		Utente utente = null;
+		
+		try {
+			PreparedStatement statementUtente = super.getDBConnection()
+					.prepareStatement("Select * from " + UTENTI_TABLE + " where id=?");
+
+			statementUtente.setInt(1, id);
+
+			ResultSet resultUtente = statementUtente.executeQuery();
+
+			if (resultUtente.next()) {
+				utente = new Giocatore();
+				utente.setId(resultUtente.getInt("id"));
+				utente.setEmail(resultUtente.getString("email"));
+				utente.setRuolo(Ruolo.from(resultUtente.getString("ruolo")));
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+
+		return utente;
+	}
 
 	public int ottieniUtente(String mail) {
 		try {
@@ -175,7 +202,7 @@ public class GestioneGiocatoreController extends DBController implements IGestio
 		return professori;
 	}
 
-	private CorsoDiLaurea ottieniCorsoDiLaurea(int id) {
+	public CorsoDiLaurea ottieniCorsoDiLaurea(int id) {
 		CorsoDiLaurea corsoDiLaurea = null;
 
 		try {
@@ -280,13 +307,70 @@ public class GestioneGiocatoreController extends DBController implements IGestio
 			ResultSet resultClassifiche = statementClassifiche.executeQuery();
 
 			while (resultClassifiche.next()) {
-				classifiche.add(cc.ottieniClassifica(resultClassifiche.getInt("classifica")));
+				classifiche.add(cc.ottieniClassifica(resultClassifiche.getInt("classificaPrivata")));
 			}
 		} catch (SQLException e) {
 
 		}
 
 		return classifiche;
+	}
+	
+	public Set<EventoAvvenuto> ottieniEventiAvvenutiDaProfessore(int id) {
+		Set<EventoAvvenuto> eventi = new HashSet<EventoAvvenuto>();
+
+		try {
+			PreparedStatement statementEventi = super.getDBConnection()
+					.prepareStatement("Select * from " + EVENTI_AVVENUTI_TABLE + " where professore=?");
+
+			statementEventi.setInt(1, id);
+
+			ResultSet resultEventi = statementEventi.executeQuery();
+
+			while (resultEventi.next()) {
+				EventoAvvenuto evento = new EventoAvvenuto();
+				evento.setId(resultEventi.getInt("id"));
+				String[] risposte = resultEventi.getString("risposteVincitrici").split(",");
+				Integer[] risposteInt = new Integer[risposte.length];
+				
+				for(int i = 0; i < risposte.length; i++) {
+					risposteInt[i] = Integer.parseInt(risposte[i]);
+				}
+				
+				Set<Integer> risposteSet = new HashSet<Integer>(Arrays.asList(risposteInt));
+				evento.setValoriRisposteVincitrici(risposteSet);
+				evento.setAzioneSignificativa(this.ottieniAzioneSignificativa(resultEventi.getInt("azioneSignificativa")));
+				eventi.add(evento);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return eventi;
+	}
+	
+	public AzioneSignificativa ottieniAzioneSignificativa(int id) {
+		AzioneSignificativa azione = null;
+
+		try {
+			PreparedStatement statementAzione = super.getDBConnection()
+					.prepareStatement("Select * from " + AZIONI_SIGNIFICATIVE_TABLE + " where id=?");
+
+			statementAzione.setInt(1, id);
+
+			ResultSet resultAzione = statementAzione.executeQuery();
+
+			if (resultAzione.next()) {
+				azione = new AzioneSignificativa();
+				azione.setId(resultAzione.getInt("id"));
+				azione.setDescrizione(resultAzione.getString("descrizione"));
+				azione.setCFU(resultAzione.getInt("cfu"));
+			}
+		} catch (SQLException e) {
+
+		}
+
+		return azione;
 	}
 
 	public static void main(String[] args) {

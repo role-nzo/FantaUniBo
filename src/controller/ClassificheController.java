@@ -1,17 +1,18 @@
 package controller;
 
-import interfaces.IClassifiche;
-
-import java.io.File;
-import java.io.FileWriter;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import java.util.HashSet;
-
-import beans.*;
+import beans.Classifica;
+import beans.ClassificaPrivata;
+import beans.Giocatore;
+import interfaces.IClassifiche;
 
 public class ClassificheController extends DBController implements IClassifiche {
 
@@ -124,8 +125,8 @@ public class ClassificheController extends DBController implements IClassifiche 
     }
 
     public Set<Giocatore> ottieniGiocatori(int IDClassifica) {
-        Set<Giocatore> giocatori = new HashSet<Giocatore>();
-
+        Set<Giocatore> giocatori = new LinkedHashSet<Giocatore>();
+        
         try {
             PreparedStatement statementGiocatori = super.getDBConnection().prepareStatement("Select * from " + GIOCATORI_CLASSIFICHE_TABLE + " where classificaPrivata=?");
             

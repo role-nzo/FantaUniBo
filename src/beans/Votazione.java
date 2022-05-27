@@ -1,24 +1,18 @@
 package beans;
 
-import java.time.LocalDateTime;
-import java.util.HashSet;
+import java.sql.Timestamp;
 import java.util.Set;
+
+import controller.VotazioniController;
 
 public abstract class Votazione {
 
     private int id;
     private String descrizione;
-    private LocalDateTime timestamp;
+    private Timestamp timestamp;
     private Set<Risposta> risposte;
 
     public Votazione() {
-        this.risposte = new HashSet<Risposta>();
-    }
-
-    public Votazione(String descrizione, LocalDateTime timestamp) {
-        this.risposte = new HashSet<Risposta>();
-        this.descrizione = descrizione;
-        this.timestamp = timestamp;
     }
 
     public int getId() {
@@ -42,7 +36,9 @@ public abstract class Votazione {
         return null;
     }
 
-    public Set<Risposta> getRisposte(){
+    public Set<Risposta> getRisposte() {
+    	if(risposte == null)
+    		risposte = new VotazioniController().ottieniRisposte(id);
         return risposte;
     }
 
@@ -54,9 +50,13 @@ public abstract class Votazione {
         this.descrizione = descrizione;
     }
 
-    public LocalDateTime getTimestamp() {
-        return timestamp;
+    public Timestamp getTimestamp() {
+        return timestamp; 
     }
+    
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    } 
 
     public abstract boolean isAmmesso(int valoreRisposta);
 

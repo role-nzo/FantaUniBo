@@ -1,12 +1,11 @@
 package beans;
 
-import java.util.*;
+import java.util.Set;
 import java.util.regex.Pattern;
 
-import controller.ClassificheController;
 import controller.GestioneGiocatoreController;
 
-public class Giocatore extends Utente {
+public class Giocatore extends Utente implements Comparable {
 
     private static final Pattern patternEmail = Pattern.compile(
             "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$");
@@ -19,9 +18,6 @@ public class Giocatore extends Utente {
 
     public Giocatore() {
         super();
-        classifichePrivate = new HashSet<Classifica>();
-        professoriSeguiti = new HashSet<Professore>();
-        commissione = new HashSet<Professore>();
     }
 
     // FIXME? - E' bella come soluzione? No, funziona? chapeau
@@ -38,7 +34,6 @@ public class Giocatore extends Utente {
 
     public Giocatore(String email) {
         super(validateEmail(email));
-        classifichePrivate = new HashSet<Classifica>();
     }
 
     @Override
@@ -47,6 +42,13 @@ public class Giocatore extends Utente {
     }
 
     public int getPunteggio() {
+    	int punteggio = 0;
+    	
+    	
+    	for(Professore p : this.getCommissione()) {
+    		punteggio += p.getPunteggio();
+    	}
+    	
         return punteggio;
     }
 
@@ -102,4 +104,10 @@ public class Giocatore extends Utente {
     public void abbandonaClassifica(Classifica classifica) {
         classifichePrivate.remove(classifica);
     }
+	
+	@Override
+	public int compareTo(Object o) {
+		Giocatore g = (Giocatore) o;
+		return g.getPunteggio() - getPunteggio();
+	}
 }

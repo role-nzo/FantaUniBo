@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DBController {
 
-    private Connection dbConnection;
+    private static Connection dbConnection;
 
     // nome del database
     private String dbHost = "remotemysql.com:3306";
@@ -40,6 +40,16 @@ public class DBController {
     public Connection getDBConnection(){
         if(dbConnection == null)
             dbConnection = openDBConnection();
+        try {
+			if(dbConnection.isClosed())
+				dbConnection = openDBConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
         return dbConnection;
     }
+    
+    public static void main(String[] args) {
+		System.out.println(new DBController().getDBConnection());
+	}
 }

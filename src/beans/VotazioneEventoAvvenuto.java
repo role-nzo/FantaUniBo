@@ -1,7 +1,5 @@
 package beans;
 
-import java.time.LocalDateTime;
-
 public class VotazioneEventoAvvenuto extends Votazione{
 
     private Professore professore;
@@ -10,15 +8,17 @@ public class VotazioneEventoAvvenuto extends Votazione{
     public VotazioneEventoAvvenuto() {
         super();
     }
-
-    public VotazioneEventoAvvenuto(String descrizione, Professore professore, AzioneSignificativa azioneSignificativa, LocalDateTime timestamp) {
-        super(descrizione, timestamp);
+    
+    public void setProfessore(Professore professore) {
         this.professore = professore;
-        this.azioneSignificativa = azioneSignificativa;
     }
     
     public Professore getProfessore(){
         return professore;
+    }
+    
+    public void setAzioneSignificativa(AzioneSignificativa azioneSignificativa){
+        this.azioneSignificativa = azioneSignificativa;
     }
 
     public AzioneSignificativa getAzioneSignificativa(){

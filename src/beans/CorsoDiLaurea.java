@@ -80,6 +80,21 @@ public class CorsoDiLaurea {
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
+    
+    @Override
+	public boolean equals(Object obj) {
+		if(obj instanceof CorsoDiLaurea) {
+			if(((CorsoDiLaurea) obj).getId() == getId())
+				return true;
+			else
+				return false;
+		} return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return 243513 * this.id;
+	}
 
     
 }

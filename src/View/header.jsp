@@ -1,3 +1,6 @@
+<%@page import="beans.*"%>
+<%@page import="controller.*"%>
+
 <!DOCTYPE html>
 <html lang="it">
 
@@ -14,7 +17,7 @@
 
 	<nav class="navbar navbar-expand-lg bg-light fixed-top">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">LOGO</a>
+			<a class="navbar-brand" href="login.jsp">Fanta UniBo</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -23,22 +26,22 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-					<li class="nav-item dropdown"><a
+					<li class="nav-item"><a class="nav-link" href="login.jsp">Home</a></li>
+						<% if(session.getAttribute("user") != null) {
+							if(!new GestioneGiocatoreController().ottieniUtente((int) session.getAttribute("user")).getRuolo().equals(Ruolo.AMMINISTRATORE) ) {
+								%>
+								<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Dropdown </a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li>
-								<hr class="dropdown-divider">
-							</li>
-							<li><a class="dropdown-item" href="#">Something else
-									here</a></li>
-						</ul></li>
+							Classifiche </a>
+								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<li><a class="dropdown-item" href="aggiungiClassifica.jsp">Aggiungi</a></li>
+									<li><a class="dropdown-item" href="partecipaClassifica.jsp">Partecipa</a></li>
+								</ul></li>
+								<%
+							}
+						}
+						%>
 				</ul>
 				<div class="d-flex" role="search">
 				<% if(session.getAttribute("user") == null) { %>

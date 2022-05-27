@@ -27,6 +27,10 @@ public class EventoAvvenuto {
     public void setId(int id) {
         this.id = id;
     }
+    
+    public void setAzioneSignificativa(AzioneSignificativa azioneSignificativa) {
+        this.azioneSignificativa = azioneSignificativa;
+    }
 
     public AzioneSignificativa getAzioneSignificativa(){
         return azioneSignificativa;

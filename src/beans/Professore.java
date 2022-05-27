@@ -1,6 +1,7 @@
 package beans;
 
 import java.util.*;
+import controller.*;
 
 public class Professore {
 
@@ -11,12 +12,9 @@ public class Professore {
     private Set<CorsoDiLaurea> corsiDiLaurea;
     private Set<EventoAvvenuto> eventiAvvenuti;
 
-    public Professore(){
-        this.corsiDiLaurea = new HashSet<CorsoDiLaurea>();
-        this.eventiAvvenuti = new HashSet<EventoAvvenuto>();
-    }
+    public Professore() {}
 
-    public Professore(String nome, String cognome, String email, Set<CorsoDiLaurea> corsiDiLaurea){
+    public Professore(String nome, String cognome, String email, Set<CorsoDiLaurea> corsiDiLaurea) {
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
@@ -24,7 +22,7 @@ public class Professore {
         this.eventiAvvenuti = new HashSet<EventoAvvenuto>();
     }
 
-    public Professore(String nome, String cognome, String email){
+    public Professore(String nome, String cognome, String email) {
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
@@ -73,11 +71,47 @@ public class Professore {
     }
 
     public Set<EventoAvvenuto> getEventiAvvenuti(){
+    	if(eventiAvvenuti == null)
+    		eventiAvvenuti = new GestioneGiocatoreController().ottieniEventiAvvenutiDaProfessore(id);
+    	
         return eventiAvvenuti;
     }
 
     public void aggiungiEventoAvvenuto(EventoAvvenuto eventoAvvenuto){
         eventiAvvenuti.add(eventoAvvenuto);
     }
+
+	public int getPunteggio() {
+		int punteggio = 0;
+		
+		for(EventoAvvenuto e : getEventiAvvenuti()) {
+			int media = 0;
+			
+			for(Integer valore : e.getValoriRisposteVincitrici()) {
+				media += valore;
+			}
+			
+			media /= e.getValoriRisposteVincitrici().size();
+			
+			punteggio += media * e.getAzioneSignificativa().getCFU();
+		}
+		
+		return punteggio;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Professore) {
+			if(((Professore) obj).getId() == getId())
+				return true;
+			else
+				return false;
+		} return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return 123172 * this.id;
+	}
     
 }

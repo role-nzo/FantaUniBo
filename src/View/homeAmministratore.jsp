@@ -21,6 +21,8 @@
 		//non è amministratore
 		response.sendRedirect("homeGiocatore.jsp");
 	}
+	
+	Utente utente = ggc.ottieniUtente((int) session.getAttribute("user"));
 %>
 
 
@@ -29,7 +31,7 @@
         <div class="col-12 row justify-content-center mt-5">
             <div class="col-12 d-flex flex-row justify-content-center align-items-center mb-5">
                 <div class="col-8">
-                    <h1>Ciao, &lt;nome utente&gt;</h1>
+                    <h1>Ciao, <%= utente.getEmail() %>;</h1>
                     <h4 class="fw-normal">Amministratore</h4>
                 </div>
             </div>

@@ -1,6 +1,5 @@
 package beans;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class VotazioneAzioneSignificativa extends Votazione{
@@ -8,17 +7,10 @@ public class VotazioneAzioneSignificativa extends Votazione{
     private Optional<CorsoDiLaurea> corsoDiLaurea;
     private int CFU;
 
-    public VotazioneAzioneSignificativa(String descrizione, LocalDateTime timestamp) {
-        super(descrizione, timestamp);
-        corsoDiLaurea = Optional.empty();
-    }
+    public VotazioneAzioneSignificativa() {
+	}
 
-    public VotazioneAzioneSignificativa(String descrizione, CorsoDiLaurea corsoDiLaurea, LocalDateTime timestamp) {
-        super(descrizione, timestamp);
-        this.corsoDiLaurea = Optional.of(corsoDiLaurea);
-    }
-
-    public Optional<CorsoDiLaurea> getCorsoDiLaurea(){
+	public Optional<CorsoDiLaurea> getCorsoDiLaurea(){
         return corsoDiLaurea;
     }
 
