@@ -64,7 +64,7 @@ public class TestVotazioni {
     @Test
     public void testSetter(){
 
-        // CHANGE? - I setter non ci sono perche' non avrebbe senso metterli, una volta che la votazione e' creata non si cambia
+        // I setter non ci sono perche' una volta che la votazione e' creata non si cambia, e' un javaBean con proprieta' in sola lettura (Read-Only)
 
         votazAzioneGlobale.setDescrizione("Nuova descrizione per la votazione");
         assertEquals("Nuova descrizione per la votazione", votazAzioneGlobale.getDescrizione());
@@ -97,6 +97,5 @@ public class TestVotazioni {
         
         assertThrows( IllegalArgumentException.class, () -> { new Risposta(ValoreRisposta.NONSO.value, giocatore, votazAzioneGlobale); });
     }
-    
-
 }
+

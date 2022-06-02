@@ -137,6 +137,7 @@ public class TestCollaudo {
        
         risposta = new Risposta(1, giocatore2, v1);
         votazController.aggiungiRisposta(risposta);
+        //La risposta verrà accettata con un quorum del 100% degli aventi diritto di voto
 
         // Simulo l'evento "finegiornata" con la relativa esecuzione di convalidaVotazioni
         new ConvalidaVotazioniController().convalidaVotazioni();
@@ -194,10 +195,5 @@ public class TestCollaudo {
        
         assertEquals(risposteVincitrici, eventoNuovo.getValoriRisposteVincitrici());
         
-    }
-
-
-    public static void main(String[] args) {
-        new TestCollaudo().testFunzioniAmministratore();
     }
 }

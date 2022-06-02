@@ -32,9 +32,9 @@ public class GestioneSupervisoreController extends DBController implements IGest
         try {
             PreparedStatement statementEventoAvvenuto = super.getDBConnection().prepareStatement("UPDATE " + EVENTO_AVVENUTO_TABLE + " SET cfu=? AND descrizione=? AND risposteVincitrici=? AND professore=? WHERE id=?");
             
-            //FIXME: evento avvenuto non ha CFU!!!
+            //FIXME: evento avvenuto non ha CFU!!! - E' perche' ha l'azione significativa
             statementEventoAvvenuto.setInt(1, 0);
-            //FIXME: evento avvenuto non ha descrizione!!!
+            //FIXME: evento avvenuto non ha descrizione!!! - Sempre perche' ha l'azione significativa
             statementEventoAvvenuto.setString(2, "");
             statementEventoAvvenuto.setString(3, String.join(", ", evento.getValoriRisposteVincitrici().toArray().toString()));
             statementEventoAvvenuto.setInt(4, evento.getProfessore().getId());
