@@ -27,26 +27,31 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link" href="login.jsp">Home</a></li>
-						<% if(session.getAttribute("user") != null) {
-							if(!new GestioneGiocatoreController().ottieniUtente((int) session.getAttribute("user")).getRuolo().equals(Ruolo.AMMINISTRATORE) ) {
-								%>
-								<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Classifiche </a>
-								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<li><a class="dropdown-item" href="aggiungiClassifica.jsp">Aggiungi</a></li>
-									<li><a class="dropdown-item" href="partecipaClassifica.jsp">Partecipa</a></li>
-								</ul></li>
-								<%
-							}
+						<% 
+						Giocatore g = (Giocatore) session.getAttribute("giocatore");
+						if(g != null && g.getRuolo().equals(Ruolo.SUPERVISORE))  { %>
+							<li class="nav-item"><a class="nav-link" href="homeSupervisore.jsp">Home Supervisore</a></li>
+						<%
+						}
+						
+						if(g!= null && !g.getRuolo().equals(Ruolo.AMMINISTRATORE) ) {
+							%>
+							<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								Classifiche
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<li><a class="dropdown-item" href="aggiungiClassifica.jsp">Aggiungi</a></li>
+								<li><a class="dropdown-item" href="partecipaClassifica.jsp">Partecipa</a></li>
+							</ul></li>
+						<%
 						}
 						%>
 				</ul>
 				<div class="d-flex" role="search">
 				<% if(session.getAttribute("user") == null) { %>
-					<a class="btn btn-primary me-2" href="login.jsp">Login</a> <a
-						class="btn btn-secondary" href="register.jsp">Registrati</a>
+					<a class="btn btn-primary me-2" href="login.jsp">Login</a>
+					<a class="btn btn-secondary" href="register.jsp">Registrati</a>
 				<% } else { %>
 					<a class="btn btn-primary me-2" href="login.jsp?logout">Logout</a>
 				<% } %>

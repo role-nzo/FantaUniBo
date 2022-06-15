@@ -17,7 +17,7 @@ if (session.getAttribute("user") == null) {
 
 GestioneGiocatoreController ggc = new GestioneGiocatoreController();
 
-Giocatore giocatore = ggc.ottieniGiocatore((int) session.getAttribute("user"));
+Giocatore giocatore = (Giocatore) session.getAttribute("giocatore");
 
 if (giocatore == null) {
 	response.sendRedirect("homeAmministratore.jsp");
@@ -103,8 +103,17 @@ Set<Votazione> votazioniEventiAvvenuti = votazioni.stream().filter(v -> v instan
 			<h2 class="mb-3">Votazioni eventi avvenuti</h2>
 			<ul class="list-group">
 				<%
+				VotazioniController vc = new VotazioniController();
+				
 					for(Votazione v : votazioniEventiAvvenuti) {
 						VotazioneEventoAvvenuto vea = (VotazioneEventoAvvenuto) v;
+						// l'utente ha gia' risposto
+						if(vc.checkRispostaGiocatore(giocatore.getId(), vea.getId()))
+							continue;
+						// il prof non è tra i seguiti
+						if(!giocatore.getProfessoriSeguiti().contains((vea.getProfessore())))
+							continue;
+						
 						%>
 						<a href="rispondiVotazione.jsp?id=<%= v.getId() %>" class="list-group-item list-group-item-action"
 							aria-current="true">
@@ -118,7 +127,7 @@ Set<Votazione> votazioniEventiAvvenuti = votazioni.stream().filter(v -> v instan
 					}
 				%>
 			</ul>
-			<a type="submit" class="mt-3 w-100 btn btn-success" href="inserisciVotazione.jsp?type=1">Aggiungi
+			<a type="submit" class="mt-3 w-100 btn btn-success" href="inserisciVotazione.jsp?type=evento">Aggiungi
 				nuovo evento</a>
 		</div>
 		<div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-5 mt-lg-0 justify-content-center align-items-center">
@@ -127,7 +136,10 @@ Set<Votazione> votazioniEventiAvvenuti = votazioni.stream().filter(v -> v instan
 				<%
 					for(Votazione v : votazioniAzioniSignificative) {
 						VotazioneAzioneSignificativa vas = (VotazioneAzioneSignificativa) v;
-						
+						// l'utente ha gia' risposto
+						if(vc.checkRispostaGiocatore(giocatore.getId(), vas.getId()))
+							continue;
+						// il corso di laurea non e' quello dell'utente
 						if(vas.getCorsoDiLaurea().isPresent() && !vas.getCorsoDiLaurea().get().equals(giocatore.getCorsoDiLaurea())) {
 							continue;
 						}
@@ -141,7 +153,7 @@ Set<Votazione> votazioniEventiAvvenuti = votazioni.stream().filter(v -> v instan
 					}
 				%>
 			</ul>
-			<a type="submit" class="mt-3 w-100 btn btn-success" href="inserisciVotazione.jsp?type=1">Aggiungi
+			<a type="submit" class="mt-3 w-100 btn btn-success" href="inserisciVotazione.jsp?type=azione">Aggiungi
 				nuova azione</a>
 		</div>
 	</div>

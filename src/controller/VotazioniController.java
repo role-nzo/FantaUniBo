@@ -52,10 +52,12 @@ public class VotazioniController extends DBController implements IVotazioni {
 				statementVotazione.setDate(1, new Date(System.currentTimeMillis()));
 				statementVotazione.setString(2, newVotazione.getDescrizione());
 				statementVotazione.setInt(3, ((VotazioneAzioneSignificativa) newVotazione).getCFU());
-				statementVotazione.setInt(4,
-						((VotazioneAzioneSignificativa) newVotazione).getCorsoDiLaurea().isPresent()
-								? ((VotazioneAzioneSignificativa) newVotazione).getCorsoDiLaurea().get().getId()
-								: null);
+				if(((VotazioneAzioneSignificativa) newVotazione).getCorsoDiLaurea().isPresent()) {
+					statementVotazione.setInt(4,((VotazioneAzioneSignificativa) newVotazione).getCorsoDiLaurea().get().getId());
+				}else
+					statementVotazione.setNull(4, java.sql.Types.NULL);
+				
+
 			} else {
 				statementVotazione = super.getDBConnection().prepareStatement("INSERT INTO " + VOTAZIONI_TABLE
 						+ " (timestamp, descrizione, azioneSignificativa, professore) VALUES (?,?,?,?)");
@@ -202,7 +204,7 @@ public class VotazioniController extends DBController implements IVotazioni {
 		try {
 			PreparedStatement statementRisposte = super.getDBConnection()
 					.prepareStatement("SELECT * FROM " + RISPOSTE_TABLE + " WHERE votazione=?");
-
+			
 			statementRisposte.setInt(1, id);
 			
 			ResultSet resultRisposte = statementRisposte.executeQuery();

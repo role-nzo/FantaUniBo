@@ -1,4 +1,5 @@
-<<%@page import="javax.*"%> <%@page import="beans.*"%>
+	<%@page import="javax.*"%>
+	<%@page import="beans.*"%>
 	<%@page import="controller.*"%> <%@page import="java.util.*"%>
 	<%@page import="java.util.stream.Collectors"%><jsp:include page="header.jsp">
 	<jsp:param name="title" value="Partecipa Classifica" />

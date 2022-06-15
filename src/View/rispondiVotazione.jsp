@@ -17,7 +17,7 @@ if (session.getAttribute("user") == null) {
 
 GestioneGiocatoreController ggc = new GestioneGiocatoreController();
 
-Giocatore giocatore = ggc.ottieniGiocatore((int) session.getAttribute("user"));
+Giocatore giocatore = (Giocatore) session.getAttribute("giocatore");
 
 if (giocatore == null) {
 	response.sendRedirect("homeAmministratore.jsp");

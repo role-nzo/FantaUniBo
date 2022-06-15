@@ -5,6 +5,7 @@
 <%
 	if(request.getParameter("logout") != null) {
 		session.setAttribute("user", null);
+		session.setAttribute("giocatore", null);
 	}
 %>
 
@@ -29,9 +30,19 @@
 			int id = new GestioneGiocatoreController().ottieniUtente(request.getParameter("email"));
 			
 			if(id >= 0) {
+				
 				session.setAttribute("user", id);
-				response.sendRedirect("homeGiocatore.jsp");
+				if( ruolo.equals(Ruolo.PARTECIPANTE) || ruolo.equals(Ruolo.SUPERVISORE)){
+					session.setAttribute("giocatore", new GestioneGiocatoreController().ottieniGiocatore(id));
+				}
+				if(ruolo.equals(Ruolo.PARTECIPANTE))
+					response.sendRedirect("homeGiocatore.jsp");
+				if(ruolo.equals(Ruolo.SUPERVISORE))
+					response.sendRedirect("homeSupervisore.jsp");
+				if(ruolo.equals(Ruolo.AMMINISTRATORE))
+					response.sendRedirect("homeAmministratore.jsp");
 			}
+			return;
 		}
 	}
 %>

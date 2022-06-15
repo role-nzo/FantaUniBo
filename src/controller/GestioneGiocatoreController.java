@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import beans.AzioneSignificativa;
@@ -302,7 +303,7 @@ public class GestioneGiocatoreController extends DBController implements IGestio
 
 	public Professore ottieniProfessore(int id) {
 		Professore professore = null;
-
+		
 		try {
 			PreparedStatement statementProfessore = super.getDBConnection()
 					.prepareStatement("Select * from " + PROFESSORI_TABLE + " where id=?");
@@ -402,6 +403,48 @@ public class GestioneGiocatoreController extends DBController implements IGestio
 		}
 
 		return azione;
+	}
+	
+	public Set<AzioneSignificativa> ottieniAzioniSignificative(int idCorsoDiLaurea) {
+		Set<AzioneSignificativa> setAzioni = new HashSet<AzioneSignificativa>();
+		AzioneSignificativa azione;
+		
+		try {
+			PreparedStatement statementAzione = super.getDBConnection()
+					.prepareStatement("Select * from " + AZIONI_SIGNIFICATIVE_TABLE + " where corsoDiLaurea IS NULL OR corsoDiLaurea=?");
+
+			statementAzione.setInt(1, idCorsoDiLaurea);
+
+			ResultSet resultAzione = statementAzione.executeQuery();
+
+			while (resultAzione.next()) {
+				azione = new AzioneSignificativa();
+				azione.setId(resultAzione.getInt("id"));
+				azione.setDescrizione(resultAzione.getString("descrizione"));
+				azione.setCFU(resultAzione.getInt("cfu"));
+				/*
+				 * TODO - IDCorsoDiLaurea e' NULL nelle azioni globali, dal codice come si capisce?
+				 * 
+				
+				if(Integer.valueOf(resultAzione.getInt("corsoDiLaurea")) == null)
+					azione.setCorsoDiLaurea(Optional.empty());
+				else
+					azione.setCorsoDiLaurea(Optional.of(ottieniCorsoDiLaurea(resultAzione.getInt("corsoDiLaurea"))));
+				*/
+				int idCorso = resultAzione.getInt("corsoDiLaurea");
+				
+				if(resultAzione.wasNull())
+					azione.setCorsoDiLaurea(Optional.empty());
+				else
+					azione.setCorsoDiLaurea(Optional.of(ottieniCorsoDiLaurea(idCorso)));
+				
+				setAzioni.add(azione);
+			}
+		} catch (SQLException e) {
+
+		}
+
+		return setAzioni;
 	}
 
 	public static void main(String[] args) {
