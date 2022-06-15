@@ -33,10 +33,6 @@ public class VotazioniController extends DBController implements IVotazioni {
 			statementRisposta.setInt(1, risposta.getGiocatore().getId());
 			statementRisposta.setInt(2, risposta.getVotazione().getId());
 			statementRisposta.setInt(3, risposta.getValore());
-			
-			System.out.println(risposta.getGiocatore().getId());
-			System.out.println(risposta.getVotazione().getId());
-			System.out.println(risposta.getValore());
 
 			statementRisposta.executeUpdate();
 		} catch (SQLException e) {

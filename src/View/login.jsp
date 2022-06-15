@@ -39,7 +39,7 @@
 <!-- INIZIO -->
 <div
 	class="d-flex flex-column container-fluid vh-100 justify-content-center align-items-center">
-	<div class="col-3 row justify-content-center align-items-center">
+	<div class="col-12 col-md-6 col-lg-4 col-xl-3 row justify-content-center align-items-center">
 		<div class="col justify-content-center align-items-center">
 			<form>
 				<h2>Login</h2>

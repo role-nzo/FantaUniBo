@@ -24,7 +24,6 @@ $("#buttonAdd").on('click', (event) => {
 	
 	//clone.find(".professoreSeguito").attr("name", "professoreSeguito"+($(".professoreSeguito").length + 1));
 	clone.find("button").attr("target", clone.attr("id")).prop("disabled", false).on('click', (event) => {
-		console.log("#" + $(event.target).attr("target"))
 		$("#" + $(event.target).attr("target")).remove();
 	});
 	

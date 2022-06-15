@@ -38,18 +38,17 @@ Set<Votazione> votazioniEventiAvvenuti = votazioni.stream().filter(v -> v instan
 %>
 
 <!-- INIZIO -->
-<div class="d-flex flex-column container-fluid mt-5 mb-5">
+<div class="d-flex flex-column container-fluid align-items-center mt-5 mb-5">
 	<div class="col-12 row justify-content-center mt-5">
-		<div
-			class="col-12 d-flex flex-row justify-content-center align-items-center mb-5">
-			<div class="col-9">
+		<div class="col-12 d-flex flex-row justify-content-center align-items-center mb-5">
+			<div class="col-12 col-xl-9">
 				<h1>
 					Ciao,
 					<%=giocatore.getEmail()%></h1>
 				<h4 class="fw-normal"><%=giocatore.getCorsoDiLaurea().getDescrizione()%></h4>
 			</div>
 		</div>
-		<div class="col-3 justify-content-center align-items-center">
+		<div class="col-12 col-lg-4 col-xl-3 justify-content-center align-items-center">
 			<h2 class="mb-3">Le tue classifiche</h2>
 			<ul class="list-group">
 				<%
@@ -100,7 +99,7 @@ Set<Votazione> votazioniEventiAvvenuti = votazioni.stream().filter(v -> v instan
 				%>
 			</ul>
 		</div>
-		<div class="col-3">
+		<div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-5 mt-lg-0">
 			<h2 class="mb-3">Votazioni eventi avvenuti</h2>
 			<ul class="list-group">
 				<%
@@ -118,35 +117,11 @@ Set<Votazione> votazioniEventiAvvenuti = votazioni.stream().filter(v -> v instan
 						<%
 					}
 				%>
-				<a href="#" class="list-group-item list-group-item-action"
-					aria-current="true">
-					<div class="d-flex w-100 justify-content-between">
-						<h5 class="mb-1">Professore uno</h5>
-						<small>magari ci mettiamo una data</small>
-					</div>
-					<p class="mb-1">Some placeholder content in a paragraph.</p>
-				</a>
-				<a href="#" class="list-group-item list-group-item-action"
-					aria-current="true">
-					<div class="d-flex w-100 justify-content-between">
-						<h5 class="mb-1">Professore uno</h5>
-						<small>magari ci mettiamo una data</small>
-					</div>
-					<p class="mb-1">Some placeholder content in a paragraph.</p>
-				</a>
-				<a href="#" class="list-group-item list-group-item-action"
-					aria-current="true">
-					<div class="d-flex w-100 justify-content-between">
-						<h5 class="mb-1">Professore uno</h5>
-						<small>magari ci mettiamo una data</small>
-					</div>
-					<p class="mb-1">Some placeholder content in a paragraph.</p>
-				</a>
 			</ul>
 			<a type="submit" class="mt-3 w-100 btn btn-success" href="inserisciVotazione.jsp?type=1">Aggiungi
 				nuovo evento</a>
 		</div>
-		<div class="col-3 justify-content-center align-items-center">
+		<div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-5 mt-lg-0 justify-content-center align-items-center">
 			<h2 class="mb-3">Votazioni azioni significative</h2>
 			<ul class="list-group">
 				<%
@@ -165,21 +140,6 @@ Set<Votazione> votazioniEventiAvvenuti = votazioni.stream().filter(v -> v instan
 						<%
 					}
 				%>
-				<a href="#"
-					class="list-group-item d-flex justify-content-between align-items-center">
-					Breve descrizione dell'azione. <span
-					class="badge bg-primary rounded-pill">100 CFU</span>
-				</a>
-				<a href="#"
-					class="list-group-item d-flex justify-content-between align-items-center">
-					Breve descrizione dell'azione. <span
-					class="badge bg-primary rounded-pill">100 CFU</span>
-				</a>
-				<a href="#"
-					class="list-group-item d-flex justify-content-between align-items-center">
-					Breve descrizione dell'azione. <span
-					class="badge bg-primary rounded-pill">100 CFU</span>
-				</a>
 			</ul>
 			<a type="submit" class="mt-3 w-100 btn btn-success" href="inserisciVotazione.jsp?type=1">Aggiungi
 				nuova azione</a>

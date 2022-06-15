@@ -38,18 +38,25 @@ public class DBController {
     }
 
     public Connection getDBConnection(){
-        if(dbConnection == null)
-            dbConnection = openDBConnection();
-        try {
-			if(dbConnection.isClosed())
+    	try {
+	        if(dbConnection == null)
+	            dbConnection = openDBConnection();
+	        else if(dbConnection.isClosed())
 				dbConnection = openDBConnection();
+	        
+	        System.out.println(dbConnection.isClosed());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
         return dbConnection;
     }
     
-    public static void main(String[] args) {
-		System.out.println(new DBController().getDBConnection());
-	}
+    public static void closeConnection() {
+    	try {
+			dbConnection.close();
+			dbConnection = null;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    }
 }

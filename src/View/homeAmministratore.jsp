@@ -31,7 +31,7 @@
         <div class="col-12 row justify-content-center mt-5">
             <div class="col-12 d-flex flex-row justify-content-center align-items-center mb-5">
                 <div class="col-8">
-                    <h1>Ciao, <%= utente.getEmail() %>;</h1>
+                    <h1>Ciao, <%= utente.getEmail() %></h1>
                     <h4 class="fw-normal">Amministratore</h4>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                     <h2 class="d-flex justify-content-between">
                         Modifica utenti
                     </h2>
-                    <button type="submit" class="btn btn-success">Modifica</button>
+                    <a class="btn btn-success" href="modificaUtenti.jsp">Modifica</a>
                 </div>
                 <div class="d-flex justify-content-between mb-3">
                     <h2 class="d-flex justify-content-between">

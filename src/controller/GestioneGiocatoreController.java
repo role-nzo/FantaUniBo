@@ -1,13 +1,22 @@
 package controller;
 
-import beans.*;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.ResultSet;
-import java.util.Set;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import beans.AzioneSignificativa;
+import beans.Classifica;
+import beans.CorsoDiLaurea;
+import beans.EventoAvvenuto;
+import beans.Giocatore;
+import beans.Professore;
+import beans.Ruolo;
+import beans.Utente;
 import interfaces.IGestioneGiocatore;
 
 /**
@@ -112,6 +121,28 @@ public class GestioneGiocatoreController extends DBController implements IGestio
 		}
 
 		return giocatore;
+	}
+	
+	public List<Utente> ottieniUtenti() {
+		List<Utente> utenti = new ArrayList<Utente>();
+		
+		try {
+			PreparedStatement statementUtente = super.getDBConnection()
+					.prepareStatement("Select * from " + UTENTI_TABLE);
+
+			ResultSet resultUtente = statementUtente.executeQuery();
+
+			while (resultUtente.next()) {
+				Utente utente = new Giocatore();
+				utente.setId(resultUtente.getInt("id"));
+				utente.setEmail(resultUtente.getString("email"));
+				utente.setRuolo(Ruolo.from(resultUtente.getString("ruolo")));
+				utenti.add(utente);			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+
+		return utenti;
 	}
 	
 	public Utente ottieniUtente(int id) {
