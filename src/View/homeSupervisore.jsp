@@ -52,16 +52,33 @@ if (giocatore.getRuolo() != Ruolo.SUPERVISORE) {
                     Eventi Avvenuti
                 </h2>
                 <ul class="list-group">
+                <%
+                for(Professore p : ggc.ottieniProfessoriDaCorsiDiLaurea(giocatore.getCorsoDiLaurea().getId())){
+                	for(EventoAvvenuto e : ggc.ottieniEventiAvvenutiDaProfessore(p.getId())){
+                %>
                     <a href="#" class="list-group-item list-group-item-action" aria-current="true">
                         <div class="d-flex w-100 justify-content-between"> 
-                            <h5 class="mb-1">Topo Lino</h5>
-                            <small>2022-06-03</small>
+                            <h5 class="mb-1"><%= p.getNome() %> <%= p.getCognome() %></h5>
+                            <small>17-06-2022</small>
                         </div>  
                         <div class="d-flex w-100 justify-content-between"> 
-	                        <p class="mb-0">Il professore arriva in ritardo</p>
-	                        <span class="badge bg-primary rounded-pill">1</span>
+	                        <p class="mb-0"> <%= e.getAzioneSignificativa().getDescrizione() %>.</p>
+	                
+                        </div>
+                        <div class="d-flex w-100 justify-content-between"> 
+                            <p class="mb-0">Risposte vincitrici:</p>
+	                        <%
+	                        Iterator<Integer> risp = e.getValoriRisposteVincitrici().iterator();
+	                        while( risp.hasNext() ) {   %>
+	                        
+	                        <span class="badge bg-primary rounded-pill"><%= ValoreRisposta.labelOf(risp.next()) %></span>
+	                        <% } %>
                         </div>
                     </a>
+                    <%
+                    	} 
+                    }
+                    %>
                 </ul>
             </div>
             <div class="col-12 col-lg-4 justify-content-center align-items-center mt-5 mt-lg-0">
@@ -69,19 +86,20 @@ if (giocatore.getRuolo() != Ruolo.SUPERVISORE) {
                     Azioni Significative
                 </h2>
                 <ul class="list-group">
+                <%
+                Set<AzioneSignificativa> azioni = ggc.ottieniAzioniSignificative(giocatore.getCorsoDiLaurea().getId());
+                for(AzioneSignificativa a : azioni) {
+                %>
                     <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
-                        Il professore arriva in ritardo
-                        <span class="badge bg-primary rounded-pill">-50 CFU</span>
+                        <%= a.getDescrizione() %>
+                        <span class="badge bg-primary rounded-pill"><%= a.getCFU() %> CFU</span>
                     </a>
-                    <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
-                        Il professore fa una capriola
-                        <span class="badge bg-primary rounded-pill">100 CFU</span>
-                    </a>
+                <% } %>
                 </ul>
             </div>
         </div>
     </div>
-    <!-- FINE -->
-</body>
 
-</html>
+<!-- FINE -->
+
+<jsp:include page="footer.jsp" />

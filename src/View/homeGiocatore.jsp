@@ -119,7 +119,7 @@ Set<Votazione> votazioniEventiAvvenuti = votazioni.stream().filter(v -> v instan
 							aria-current="true">
 							<div class="d-flex w-100 justify-content-between">
 								<h5 class="mb-1"><%= vea.getProfessore().getNome() + " " + vea.getProfessore().getCognome() %></h5>
-								<small><%= v.getTimestamp() %></small>
+								<small>2022-06-<%= vea.getTimestamp().getDate() %></small>
 							</div>
 							<p class="mb-1"><%= vea.getAzioneSignificativa().getDescrizione() %></p>
 						</a>

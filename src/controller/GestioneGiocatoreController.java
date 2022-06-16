@@ -366,7 +366,7 @@ public class GestioneGiocatoreController extends DBController implements IGestio
 				Integer[] risposteInt = new Integer[risposte.length];
 				
 				for(int i = 0; i < risposte.length; i++) {
-					risposteInt[i] = Integer.parseInt(risposte[i]);
+					risposteInt[i] = Integer.parseInt(risposte[i].trim());
 				}
 				
 				Set<Integer> risposteSet = new HashSet<Integer>(Arrays.asList(risposteInt));

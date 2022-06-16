@@ -14,4 +14,14 @@ public enum ValoreRisposta {
         this.value = value;
         this.label = label;
     }
+    
+    public static String labelOf(int value) {
+    	switch(value) {
+    	case -3 : return "Si";
+    	case -2 : return "No";
+    	case -1 : return "Non so";
+    	case 0 : return "Falso";
+    	default : return String.valueOf(value);
+    	}
+    }
 }
